@@ -1,0 +1,12 @@
+name: UltimateTools
+description: UltimateTools
+main: com.songoda.ultimatetools.UltimateTools
+version: maven-version-number
+author: Songoda
+api-version: 1.13
+commands:
+  UTO:
+    description: View information on this plugin.
+    default: true
+    aliases: [ultimatetools]
+    usage: /uto
