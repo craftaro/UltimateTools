@@ -10,6 +10,7 @@ import com.songoda.ultimatetools.listeners.BlockListeners;
 import com.songoda.ultimatetools.listeners.EntityListeners;
 import com.songoda.ultimatetools.listeners.InteractListeners;
 import com.songoda.ultimatetools.listeners.InventoryListeners;
+import com.songoda.ultimatetools.settings.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -22,7 +23,7 @@ public class UltimateTools extends SongodaPlugin {
     private CommandManager commandManager;
     private EnchantManager enchantManager;
 
-    public UltimateTools getInstance() {
+    public static UltimateTools getInstance() {
         return INSTANCE;
     }
 
@@ -33,6 +34,10 @@ public class UltimateTools extends SongodaPlugin {
 
     @Override
     public void onPluginEnable() {
+
+        // Setup Config
+        Settings.setupConfig();
+        this.setLocale(Settings.LANGUGE_MODE.getString(), false);
 
         // Register commands
         this.commandManager = new CommandManager(this);

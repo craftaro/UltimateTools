@@ -1,14 +1,15 @@
 package com.songoda.ultimatetools.enchant.enchants;
 
-import com.songoda.core.compatibility.CompatibleHand;
 import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.compatibility.ServerVersion;
 import com.songoda.core.nms.NmsManager;
 import com.songoda.core.nms.nbt.NBTCore;
 import com.songoda.core.nms.nbt.NBTItem;
+import com.songoda.ultimatetools.UltimateTools;
 import com.songoda.ultimatetools.enchant.AbstractEnchant;
 import com.songoda.ultimatetools.enchant.EnchantHandler;
 import com.songoda.ultimatetools.enchant.ToolType;
+import com.songoda.ultimatetools.settings.Settings;
 import com.songoda.ultimatetools.utils.LocationUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -16,7 +17,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -38,7 +38,7 @@ public class RemoteLoot extends AbstractEnchant {
                 ToolType.SWORD, ToolType.AXE, ToolType.PICKAXE, ToolType.SHOVEL);
         this.random = new Random();
     }
-    
+
     @EnchantHandler
     public void onEntityDamageByPlayer(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player)) return;
@@ -57,7 +57,7 @@ public class RemoteLoot extends AbstractEnchant {
         ItemStack tool = player.getItemInHand();
         NBTCore nbt = NmsManager.getNbt();
         NBTItem nbtItem = nbt.of(tool);
-        
+
         if (!nbtItem.has("RLL") || nbtItem.getNBTObject("RLL") == null)
             return;
 
@@ -91,10 +91,12 @@ public class RemoteLoot extends AbstractEnchant {
             boolean isLinked = nbtItem.has("RLL");
 
             if (isLinked) {
-                player.sendMessage("You unlinked your tool with this chest.");
+                UltimateTools.getInstance().getLocale()
+                        .getMessage("event.remoteloot.unlink").sendPrefixedMessage(player);
                 nbtItem.remove("RLL");
             } else {
-                player.sendMessage("You linked your tool with this chest.");
+                UltimateTools.getInstance().getLocale()
+                        .getMessage("event.remoteloot.link").sendPrefixedMessage(player);
                 nbtItem.set("RLL", LocationUtils.serializeLocation(event.getClickedBlock().getLocation()));
             }
             player.setItemInHand(nbtItem.finish());
@@ -119,7 +121,7 @@ public class RemoteLoot extends AbstractEnchant {
 
         if (location == null
                 || material == CompatibleMaterial.CHEST
-                //|| Settings.SYNC_TOUCH_BLACKLIST.getStringList().contains(event.getBlock().getType().name())
+                || Settings.REMOTE_TOOLS_BLACKLIST.getStringList().contains(event.getBlock().getType().name())
 
                 || material.name().contains("SHULKER")
                 || material == CompatibleMaterial.SPAWNER) {
