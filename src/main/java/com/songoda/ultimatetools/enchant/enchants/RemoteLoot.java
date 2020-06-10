@@ -41,7 +41,7 @@ public class RemoteLoot extends AbstractEnchant {
     
     @EnchantHandler
     public void onEntityDamageByPlayer(EntityDamageByEntityEvent event) {
-        System.out.println("test");
+        if (!(event.getDamager() instanceof Player)) return;
         Player player = (Player) event.getDamager();
         double d = ((LivingEntity) event.getEntity()).getHealth() - event.getDamage();
         if (d < 1) {
@@ -51,7 +51,6 @@ public class RemoteLoot extends AbstractEnchant {
 
     @EnchantHandler
     public void onEntityKilledByPlayer(EntityDeathEvent event) {
-        System.out.println("test1");
         if (!entities.containsKey(event.getEntity().getUniqueId())) return;
         Player player = entities.get(event.getEntity().getUniqueId());
 
@@ -61,7 +60,7 @@ public class RemoteLoot extends AbstractEnchant {
         
         if (!nbtItem.has("RLL") || nbtItem.getNBTObject("RLL") == null)
             return;
-        System.out.println("test2");
+
         Location location = LocationUtils.unserializeLocation(nbtItem.getNBTObject("RLL").asString());
 
         if (location.getBlock().getType() != Material.CHEST) return;

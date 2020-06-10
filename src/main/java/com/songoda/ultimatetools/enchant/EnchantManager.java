@@ -5,6 +5,7 @@ import com.songoda.core.nms.NmsManager;
 import com.songoda.core.nms.nbt.NBTCore;
 import com.songoda.core.nms.nbt.NBTItem;
 import com.songoda.ultimatetools.UltimateTools;
+import com.songoda.ultimatetools.enchant.enchants.Blast;
 import com.songoda.ultimatetools.enchant.enchants.MultiTool;
 import com.songoda.ultimatetools.enchant.enchants.RemoteLoot;
 import org.bukkit.event.Event;
@@ -28,7 +29,8 @@ public class EnchantManager {
     public EnchantManager load() {
 
         registerEnchants(new MultiTool(),
-                new RemoteLoot());
+                new RemoteLoot(),
+                new Blast());
 
         return this;
     }

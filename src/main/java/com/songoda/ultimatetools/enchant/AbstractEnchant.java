@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -48,7 +49,14 @@ public abstract class AbstractEnchant {
     public void onEntityDamageByPlayer(EntityDamageByEntityEvent event) {
     }
 
+    public void onPlayerDamageByEntity(EntityDamageByEntityEvent event) {
+    }
+
     public void onEntityKilledByPlayer(EntityDeathEvent event) {
+    }
+
+    public void onEntityExplode(EntityExplodeEvent event) {
+
     }
 
     public ItemStack apply(ItemStack item) {
