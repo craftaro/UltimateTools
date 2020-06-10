@@ -3,3 +3,8 @@
 general:
   nametag:
     prefix: '&7[&6UltimateTools&7]'
+
+event:
+  remoteloot:
+    link: '&aYou linked your tool with this chest.'
+    unlink: '&aYou unlinked your tool with this chest.'
