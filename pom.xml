@@ -2,7 +2,7 @@
     <groupId>com.songoda</groupId>
     <artifactId>UltimateTools</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <version>Beta-1</version>
+    <version>Beta-2</version>
     <build>
         <defaultGoal>clean install</defaultGoal>
         <finalName>UltimateTools-${project.version}</finalName>
