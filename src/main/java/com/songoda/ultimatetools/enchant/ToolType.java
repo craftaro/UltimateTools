@@ -9,25 +9,29 @@ import java.util.List;
 
 public enum ToolType {
 
-    SWORD(CompatibleMaterial.DIAMOND_SWORD,
+    SWORD(CompatibleMaterial.NETHERITE_SWORD,
+            CompatibleMaterial.DIAMOND_SWORD,
             CompatibleMaterial.GOLDEN_SWORD,
             CompatibleMaterial.IRON_SWORD,
             CompatibleMaterial.STONE_SWORD,
             CompatibleMaterial.WOODEN_SWORD),
 
-    AXE(CompatibleMaterial.DIAMOND_AXE,
+    AXE(CompatibleMaterial.NETHERITE_AXE,
+            CompatibleMaterial.DIAMOND_AXE,
             CompatibleMaterial.GOLDEN_AXE,
             CompatibleMaterial.IRON_AXE,
             CompatibleMaterial.STONE_AXE,
             CompatibleMaterial.WOODEN_AXE),
 
-    PICKAXE(CompatibleMaterial.DIAMOND_PICKAXE,
+    PICKAXE(CompatibleMaterial.NETHERITE_PICKAXE,
+            CompatibleMaterial.DIAMOND_PICKAXE,
             CompatibleMaterial.GOLDEN_PICKAXE,
             CompatibleMaterial.IRON_PICKAXE,
             CompatibleMaterial.STONE_PICKAXE,
             CompatibleMaterial.WOODEN_PICKAXE),
 
-    SHOVEL(CompatibleMaterial.DIAMOND_SHOVEL,
+    SHOVEL(CompatibleMaterial.NETHERITE_SHOVEL,
+            CompatibleMaterial.DIAMOND_SHOVEL,
             CompatibleMaterial.GOLDEN_SHOVEL,
             CompatibleMaterial.IRON_SHOVEL,
             CompatibleMaterial.STONE_SHOVEL,

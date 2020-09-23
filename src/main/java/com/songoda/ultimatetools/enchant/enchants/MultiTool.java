@@ -22,7 +22,9 @@ public class MultiTool extends AbstractEnchant {
 
     private void updateType(ToolType type, ItemStack tool) {
         if (type == MultiTool.ToolType.PICKAXE) {
-            if (tool.getType().name().contains("DIAMOND"))
+            if (tool.getType().name().contains("NETHERITE"))
+                tool.setType(CompatibleMaterial.NETHERITE_PICKAXE.getMaterial());
+            else if (tool.getType().name().contains("DIAMOND"))
                 tool.setType(CompatibleMaterial.DIAMOND_PICKAXE.getMaterial());
             else if (tool.getType().name().contains("IRON"))
                 tool.setType(CompatibleMaterial.IRON_PICKAXE.getMaterial());
@@ -33,7 +35,9 @@ public class MultiTool extends AbstractEnchant {
             else if (tool.getType().name().contains("GOLD"))
                 tool.setType(CompatibleMaterial.GOLDEN_PICKAXE.getMaterial());
         } else if (type == MultiTool.ToolType.AXE) {
-            if (tool.getType().name().contains("DIAMOND"))
+            if (tool.getType().name().contains("NETHERITE"))
+                tool.setType(CompatibleMaterial.NETHERITE_AXE.getMaterial());
+            else if (tool.getType().name().contains("DIAMOND"))
                 tool.setType(CompatibleMaterial.DIAMOND_AXE.getMaterial());
             else if (tool.getType().name().contains("IRON"))
                 tool.setType(CompatibleMaterial.IRON_AXE.getMaterial());
@@ -44,7 +48,9 @@ public class MultiTool extends AbstractEnchant {
             else if (tool.getType().name().contains("GOLD"))
                 tool.setType(CompatibleMaterial.GOLDEN_AXE.getMaterial());
         } else if (type == MultiTool.ToolType.SHOVEL) {
-            if (tool.getType().name().contains("DIAMOND"))
+            if (tool.getType().name().contains("NETHERITE"))
+                tool.setType(CompatibleMaterial.NETHERITE_SHOVEL.getMaterial());
+            else if (tool.getType().name().contains("DIAMOND"))
                 tool.setType(CompatibleMaterial.DIAMOND_SHOVEL.getMaterial());
             else if (tool.getType().name().contains("IRON"))
                 tool.setType(CompatibleMaterial.IRON_SHOVEL.getMaterial());
@@ -68,13 +74,19 @@ public class MultiTool extends AbstractEnchant {
             case ANDESITE_SLAB:
             case ANDESITE_STAIRS:
             case ANDESITE_WALL:
+            case ANCIENT_DEBRIS:
             case ANVIL:
+            case BASALT:
             case BEACON:
             case BELL:
             case BLACK_CONCRETE:
             case BLACK_GLAZED_TERRACOTTA:
             case BLACK_SHULKER_BOX:
             case BLACK_TERRACOTTA:
+            case BLACKSTONE:
+            case BLACKSTONE_SLAB:
+            case BLACKSTONE_STAIRS:
+            case BLACKSTONE_WALL:
             case BLAST_FURNACE:
             case BLUE_CONCRETE:
             case BLUE_GLAZED_TERRACOTTA:
@@ -95,6 +107,8 @@ public class MultiTool extends AbstractEnchant {
             case BUBBLE_CORAL_BLOCK:
             case CAULDRON:
             case CHIPPED_ANVIL:
+            case CHISELED_NETHER_BRICKS:
+            case CHISELED_POLISHED_BLACKSTONE:
             case CHISELED_QUARTZ_BLOCK:
             case CHISELED_RED_SANDSTONE:
             case CHISELED_SANDSTONE:
@@ -106,7 +120,10 @@ public class MultiTool extends AbstractEnchant {
             case COBBLESTONE_STAIRS:
             case COBBLESTONE_WALL:
             case CONDUIT:
+            case CRACKED_NETHER_BRICKS:
+            case CRACKED_POLISHED_BLACKSTONE_BRICKS:
             case CRACKED_STONE_BRICKS:
+            case CRYING_OBSIDIAN:
             case CUT_RED_SANDSTONE:
             case CUT_RED_SANDSTONE_SLAB:
             case CUT_SANDSTONE:
@@ -143,6 +160,7 @@ public class MultiTool extends AbstractEnchant {
             case END_STONE_BRICK_WALL:
             case FIRE_CORAL_BLOCK:
             case FURNACE:
+            case GILDED_BLACKSTONE:
             case GOLD_BLOCK:
             case GOLD_ORE:
             case GRANITE:
@@ -166,6 +184,7 @@ public class MultiTool extends AbstractEnchant {
             case IRON_DOOR:
             case IRON_ORE:
             case IRON_TRAPDOOR:
+            case JIGSAW:
             case LANTERN:
             case LAPIS_BLOCK:
             case LAPIS_ORE:
@@ -182,6 +201,7 @@ public class MultiTool extends AbstractEnchant {
             case LIME_GLAZED_TERRACOTTA:
             case LIME_SHULKER_BOX:
             case LIME_TERRACOTTA:
+            case LODESTONE:
             case MAGENTA_CONCRETE:
             case MAGENTA_GLAZED_TERRACOTTA:
             case MAGENTA_SHULKER_BOX:
@@ -201,7 +221,9 @@ public class MultiTool extends AbstractEnchant {
             case NETHER_BRICK_SLAB:
             case NETHER_BRICK_STAIRS:
             case NETHER_BRICK_WALL:
+            case NETHER_GOLD_ORE:
             case NETHER_QUARTZ_ORE:
+            case NETHERITE_BLOCK:
             case OBSERVER:
             case OBSIDIAN:
             case ORANGE_CONCRETE:
@@ -216,6 +238,15 @@ public class MultiTool extends AbstractEnchant {
             case POLISHED_ANDESITE:
             case POLISHED_ANDESITE_SLAB:
             case POLISHED_ANDESITE_STAIRS:
+            case POLISHED_BASALT:
+            case POLISHED_BLACKSTONE:
+            case POLISHED_BLACKSTONE_BRICKS:
+            case POLISHED_BLACKSTONE_BRICK_SLAB:
+            case POLISHED_BLACKSTONE_BRICK_STAIRS:
+            case POLISHED_BLACKSTONE_BRICK_WALL:
+            case POLISHED_BLACKSTONE_SLAB:
+            case POLISHED_BLACKSTONE_STAIRS:
+            case POLISHED_BLACKSTONE_WALL:
             case POLISHED_DIORITE:
             case POLISHED_DIORITE_SLAB:
             case POLISHED_DIORITE_STAIRS:
@@ -239,6 +270,7 @@ public class MultiTool extends AbstractEnchant {
             case PURPUR_SLAB:
             case PURPUR_STAIRS:
             case QUARTZ_BLOCK:
+            case QUARTZ_BRICKS:
             case QUARTZ_PILLAR:
             case QUARTZ_SLAB:
             case QUARTZ_STAIRS:
@@ -257,6 +289,7 @@ public class MultiTool extends AbstractEnchant {
             case RED_SANDSTONE_WALL:
             case RED_SHULKER_BOX:
             case RED_TERRACOTTA:
+            case RESPAWN_ANCHOR:
             case SANDSTONE:
             case SANDSTONE_SLAB:
             case SANDSTONE_STAIRS:
@@ -274,6 +307,7 @@ public class MultiTool extends AbstractEnchant {
             case SMOOTH_SANDSTONE_STAIRS:
             case SMOOTH_STONE:
             case SMOOTH_STONE_SLAB:
+            case SOUL_SOIL:
             case SPAWNER:
             case STONE:
             case STONECUTTER:
@@ -285,6 +319,7 @@ public class MultiTool extends AbstractEnchant {
             case STONE_PRESSURE_PLATE:
             case STONE_SLAB:
             case STONE_STAIRS:
+            case TARGET:
             case TERRACOTTA:
             case TUBE_CORAL_BLOCK:
             case WHITE_CONCRETE:
@@ -339,6 +374,20 @@ public class MultiTool extends AbstractEnchant {
             case COCOA:
             case COMPOSTER:
             case CRAFTING_TABLE:
+            case CRIMSON_BUTTON:
+            case CRIMSON_DOOR:
+            case CRIMSON_FENCE:
+            case CRIMSON_FENCE_GATE:
+            case CRIMSON_HYPHAE:
+            case CRIMSON_NYLIUM:
+            case CRIMSON_PLANKS:
+            case CRIMSON_PRESSURE_PLATE:
+            case CRIMSON_SIGN:
+            case CRIMSON_SLAB:
+            case CRIMSON_STAIRS:
+            case CRIMSON_STEM:
+            case CRIMSON_TRAPDOOR:
+            case CRIMSON_WALL_SIGN:
             case CYAN_BANNER:
             case CYAN_WALL_BANNER:
             case DARK_OAK_BUTTON:
@@ -397,6 +446,8 @@ public class MultiTool extends AbstractEnchant {
             case OAK_WOOD:
             case PINK_BANNER:
             case PINK_WALL_BANNER:
+            case POLISHED_BLACKSTONE_BUTTON:
+            case POLISHED_BLACKSTONE_PRESSURE_PLATE:
             case PUMPKIN:
             case PURPLE_BANNER:
             case PURPLE_WALL_BANNER:
@@ -404,6 +455,8 @@ public class MultiTool extends AbstractEnchant {
             case RED_MUSHROOM_BLOCK:
             case RED_WALL_BANNER:
             case SMITHING_TABLE:
+            case SOUL_CAMPFIRE:
+            case SOUL_LANTERN:
             case SPRUCE_BUTTON:
             case SPRUCE_DOOR:
             case SPRUCE_FENCE:
@@ -421,6 +474,8 @@ public class MultiTool extends AbstractEnchant {
             case STRIPPED_ACACIA_WOOD:
             case STRIPPED_BIRCH_LOG:
             case STRIPPED_BIRCH_WOOD:
+            case STRIPPED_CRIMSON_HYPHAE:
+            case STRIPPED_CRIMSON_STEM:
             case STRIPPED_DARK_OAK_LOG:
             case STRIPPED_DARK_OAK_WOOD:
             case STRIPPED_JUNGLE_LOG:
@@ -429,7 +484,24 @@ public class MultiTool extends AbstractEnchant {
             case STRIPPED_OAK_WOOD:
             case STRIPPED_SPRUCE_LOG:
             case STRIPPED_SPRUCE_WOOD:
+            case STRIPPED_WARPED_HYPHAE:
+            case STRIPPED_WARPED_STEM:
             case TRAPPED_CHEST:
+            case WARPED_BUTTON:
+            case WARPED_DOOR:
+            case WARPED_FENCE:
+            case WARPED_FENCE_GATE:
+            case WARPED_HYPHAE:
+            case WARPED_NYLIUM:
+            case WARPED_PLANKS:
+            case WARPED_PRESSURE_PLATE:
+            case WARPED_SIGN:
+            case WARPED_SLAB:
+            case WARPED_STAIRS:
+            case WARPED_STEM:
+            case WARPED_TRAPDOOR:
+            case WARPED_WALL_SIGN:
+            case WARPED_WART_BLOCK:
             case WHITE_BANNER:
             case WHITE_WALL_BANNER:
             case YELLOW_BANNER:
