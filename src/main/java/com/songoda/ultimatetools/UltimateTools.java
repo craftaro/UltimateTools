@@ -62,6 +62,11 @@ public class UltimateTools extends SongodaPlugin {
     }
 
     @Override
+    public void onDataLoad() {
+
+    }
+
+    @Override
     public void onConfigReload() {
 
     }
