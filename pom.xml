@@ -2,7 +2,7 @@
     <groupId>com.songoda</groupId>
     <artifactId>UltimateTools</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <version>Beta-2</version>
+    <version>Beta-3</version>
     <build>
         <defaultGoal>clean install</defaultGoal>
         <finalName>UltimateTools-${project.version}</finalName>
@@ -83,11 +83,11 @@
     <repositories>
         <repository>
             <id>private</id>
-            <url>http://repo.songoda.com/artifactory/private/</url>
+            <url>http://repo.songoda.com/repository/private/</url>
         </repository>
         <repository>
             <id>public</id>
-            <url>http://repo.songoda.com/artifactory/public/</url>
+            <url>http://repo.songoda.com/repository/public/</url>
         </repository>
         <repository>
             <id>spigot-repo</id>
@@ -112,7 +112,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.15</version>
+            <version>1.16.2</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
