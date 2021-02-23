@@ -2,6 +2,8 @@ package com.songoda.ultimatetools.enchant.enchants;
 
 import com.songoda.ultimatetools.enchant.AbstractEnchant;
 import com.songoda.ultimatetools.enchant.EnchantHandler;
+import com.songoda.ultimatetools.enchant.EnchantType;
+import com.songoda.ultimatetools.enchant.ToolType;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,11 +22,10 @@ import java.util.*;
 
 public class Blast extends AbstractEnchant {
 
-    Map<UUID, TNTBlock> primed = new HashMap<>();
+    private final Map<UUID, TNTBlock> primed = new HashMap<>();
 
     public Blast() {
-        super("BLAST", "Blast", 1, 3,
-                com.songoda.ultimatetools.enchant.ToolType.PICKAXE, com.songoda.ultimatetools.enchant.ToolType.SHOVEL);
+        super(EnchantType.BLAST, "Blast", 1, 3, ToolType.PICKAXE, ToolType.SHOVEL);
     }
 
     @EnchantHandler

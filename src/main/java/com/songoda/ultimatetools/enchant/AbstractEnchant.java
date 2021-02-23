@@ -6,7 +6,6 @@ import com.songoda.core.nms.nbt.NBTCore;
 import com.songoda.core.nms.nbt.NBTItem;
 import com.songoda.core.utils.ItemUtils;
 import com.songoda.core.utils.TextUtils;
-import org.bukkit.Material;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -22,7 +21,8 @@ import java.util.List;
 
 public abstract class AbstractEnchant {
 
-    private final String key;
+    private final EnchantType type;
+    private final String customType;
 
     private final String name;
 
@@ -32,12 +32,21 @@ public abstract class AbstractEnchant {
 
     private final List<ToolType> applicableTypes = new ArrayList<>();
 
-    public AbstractEnchant(String key, String name, int minLevel, int maxLevel, ToolType... toolTypes) {
-        this.key = key;
+    private AbstractEnchant(EnchantType type, String key, String name, int minLevel, int maxLevel, ToolType... toolTypes) {
+        this.type = type;
+        this.customType = key;
         this.name = name;
         this.minLevel = minLevel;
         this.maxLevel = maxLevel;
         applicableTypes.addAll(Arrays.asList(toolTypes));
+    }
+
+    public AbstractEnchant(EnchantType type, String name, int minLevel, int maxLevel, ToolType... toolTypes) {
+        this(type, null, name, minLevel, maxLevel, toolTypes);
+    }
+
+    public AbstractEnchant(String key, String name, int minLevel, int maxLevel, ToolType... toolTypes) {
+        this(EnchantType.CUSTOM, key, name, minLevel, maxLevel, toolTypes);
     }
 
     public void onInteract(PlayerInteractEvent event) {
@@ -56,7 +65,6 @@ public abstract class AbstractEnchant {
     }
 
     public void onEntityExplode(EntityExplodeEvent event) {
-
     }
 
     public ItemStack apply(ItemStack item) {
@@ -68,7 +76,7 @@ public abstract class AbstractEnchant {
 
         if (nbtItem.has("UTE")) {
             for (String key : nbtItem.getNBTObject("UTE").asString().split(";"))
-                if (key.equals(this.key))
+                if (key.equals(getIdentifyingType()))
                     return item;
         }
 
@@ -81,9 +89,9 @@ public abstract class AbstractEnchant {
         nbtItem = nbt.of(item);
 
         if (nbtItem.has("UTE"))
-            nbtItem.set("UTE", nbtItem.getNBTObject("UTE").asString() + ";" + key);
+            nbtItem.set("UTE", nbtItem.getNBTObject("UTE").asString() + ";" + getIdentifyingType());
         else
-            nbtItem.set("UTE", key);
+            nbtItem.set("UTE", getIdentifyingType());
         return nbtItem.finish();
     }
 
@@ -106,13 +114,17 @@ public abstract class AbstractEnchant {
 
         NBTCore nbt = NmsManager.getNbt();
         NBTItem nbtItem = nbt.of(book);
-        nbtItem.set("UTE", key); // UltimateToolsEnchant
+        nbtItem.set("UTE", getIdentifyingType()); // UltimateToolsEnchant
 
         return nbtItem.finish();
     }
 
-    public String getKey() {
-        return key;
+    public EnchantType getType() {
+        return type;
+    }
+
+    public String getIdentifyingType() {
+        return type == EnchantType.CUSTOM ? "CUSTOM_" + customType : type.name();
     }
 
     public String getName() {

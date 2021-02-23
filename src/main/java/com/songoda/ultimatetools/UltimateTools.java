@@ -1,7 +1,9 @@
 package com.songoda.ultimatetools;
 
+import com.songoda.core.SongodaCore;
 import com.songoda.core.SongodaPlugin;
 import com.songoda.core.commands.CommandManager;
+import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.configuration.Config;
 import com.songoda.core.locale.Locale;
 import com.songoda.ultimatetools.commands.CommandGiveBook;
@@ -20,7 +22,6 @@ public class UltimateTools extends SongodaPlugin {
 
     private static UltimateTools INSTANCE;
 
-    private CommandManager commandManager;
     private EnchantManager enchantManager;
 
     public static UltimateTools getInstance() {
@@ -34,16 +35,17 @@ public class UltimateTools extends SongodaPlugin {
 
     @Override
     public void onPluginEnable() {
+        // Run Songoda Updater
+        SongodaCore.registerPlugin(this, 580, CompatibleMaterial.ENCHANTED_BOOK);
 
         // Setup Config
         Settings.setupConfig();
         this.setLocale(Settings.LANGUGE_MODE.getString(), false);
 
         // Register commands
-        this.commandManager = new CommandManager(this);
-        this.commandManager.addMainCommand("UTO")
-                .addSubCommands(
-                        new CommandGiveBook(this));
+        CommandManager commandManager = new CommandManager(this);
+        commandManager.addMainCommand("UTO")
+                .addSubCommands(new CommandGiveBook(this));
 
         this.enchantManager = new EnchantManager(this).load();
 
