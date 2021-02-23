@@ -8,6 +8,7 @@ import com.songoda.ultimatetools.UltimateTools;
 import com.songoda.ultimatetools.enchant.enchants.Blast;
 import com.songoda.ultimatetools.enchant.enchants.MultiTool;
 import com.songoda.ultimatetools.enchant.enchants.RemoteLoot;
+import com.songoda.ultimatetools.enchant.enchants.VeinMiner;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
@@ -30,13 +31,14 @@ public class EnchantManager {
 
         registerEnchants(new MultiTool(),
                 new RemoteLoot(),
-                new Blast());
+                new Blast(),
+                new VeinMiner());
 
         return this;
     }
 
     public boolean registerEnchant(AbstractEnchant enchant) {
-        registeredEnchants.put(enchant.getKey(), enchant);
+        registeredEnchants.put(enchant.getIdentifyingType(), enchant);
         Set<Method> methods;
         try {
             Method[] publicMethods = enchant.getClass().getMethods();
@@ -77,7 +79,7 @@ public class EnchantManager {
         List<String> enchants = Arrays.asList(nbtItem.getNBTObject("UTE").asString().split(";"));
 
         for (HandlerWrapper wrapper : registeredHandlers) {
-            if (!enchants.contains(wrapper.getEnchant().getKey()))
+            if (!enchants.contains(wrapper.getEnchant().getIdentifyingType()))
                 continue;
 
             Method handler = wrapper.getHandler();

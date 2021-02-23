@@ -3,6 +3,7 @@ package com.songoda.ultimatetools.enchant.enchants;
 import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.ultimatetools.enchant.AbstractEnchant;
 import com.songoda.ultimatetools.enchant.EnchantHandler;
+import com.songoda.ultimatetools.enchant.EnchantType;
 import org.bukkit.block.Block;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -10,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 public class MultiTool extends AbstractEnchant {
 
     public MultiTool() {
-        super("MULTI_TOOL", "Multi Tool", 1, 3,
+        super(EnchantType.MULTI_TOOL, "Multi Tool", 1, 3,
                 com.songoda.ultimatetools.enchant.ToolType.PICKAXE, com.songoda.ultimatetools.enchant.ToolType.AXE, com.songoda.ultimatetools.enchant.ToolType.SHOVEL);
     }
 

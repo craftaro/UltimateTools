@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class BlockListeners implements Listener {
 
@@ -19,8 +20,9 @@ public class BlockListeners implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBreak(BlockBreakEvent event) {
-        if (enchantManager.isEnchanted(event.getPlayer().getItemInHand()))
-            plugin.getEnchantManager().processEnchant(event, event.getPlayer().getItemInHand());
+        ItemStack item = event.getPlayer().getItemInHand();
+        if (enchantManager.isEnchanted(item))
+            plugin.getEnchantManager().processEnchant(event, item);
 
     }
 }

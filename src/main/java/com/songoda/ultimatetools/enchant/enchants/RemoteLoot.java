@@ -8,6 +8,7 @@ import com.songoda.core.nms.nbt.NBTItem;
 import com.songoda.ultimatetools.UltimateTools;
 import com.songoda.ultimatetools.enchant.AbstractEnchant;
 import com.songoda.ultimatetools.enchant.EnchantHandler;
+import com.songoda.ultimatetools.enchant.EnchantType;
 import com.songoda.ultimatetools.enchant.ToolType;
 import com.songoda.ultimatetools.settings.Settings;
 import com.songoda.ultimatetools.utils.LocationUtils;
@@ -34,7 +35,7 @@ public class RemoteLoot extends AbstractEnchant {
     private final Random random;
 
     public RemoteLoot() {
-        super("REMOTE_LOOT", "Remote Loot", 1, 3,
+        super(EnchantType.REMOTE_LOOT, "Remote Loot", 1, 3,
                 ToolType.SWORD, ToolType.AXE, ToolType.PICKAXE, ToolType.SHOVEL);
         this.random = new Random();
     }
@@ -64,7 +65,7 @@ public class RemoteLoot extends AbstractEnchant {
         Location location = LocationUtils.unserializeLocation(nbtItem.getNBTObject("RLL").asString());
 
         if (location.getBlock().getType() != Material.CHEST) return;
-        System.out.println("test3");
+
         InventoryHolder ih = (InventoryHolder) location.getBlock().getState();
         for (ItemStack is : event.getDrops()) {
             Map<Integer, ItemStack> notDropped = ih.getInventory().addItem(is);
@@ -138,7 +139,7 @@ public class RemoteLoot extends AbstractEnchant {
                 drops.add(getOreDrop(material, random));
         }
         if (meta.hasEnchant(Enchantment.SILK_TOUCH)) {
-            ih.getInventory().addItem(new ItemStack(event.getBlock().getType(), 1, event.getBlock().getData()));
+                ih.getInventory().addItem(CompatibleMaterial.getMaterial(event.getBlock()).getItem());
         } else {
             if (meta.hasEnchant(Enchantment.LOOT_BONUS_BLOCKS)) {
                 int level = meta.getEnchantLevel(Enchantment.LOOT_BONUS_BLOCKS);

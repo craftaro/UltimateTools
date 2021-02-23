@@ -53,7 +53,7 @@ public class CommandGiveBook extends AbstractCommand {
     protected List<String> onTab(CommandSender sender, String... args) {
         if (args.length == 1) {
             return plugin.getEnchantManager().getEnchants().stream()
-                    .map(AbstractEnchant::getKey).collect(Collectors.toList());
+                    .map(AbstractEnchant::getIdentifyingType).collect(Collectors.toList());
         }
         return null;
     }
