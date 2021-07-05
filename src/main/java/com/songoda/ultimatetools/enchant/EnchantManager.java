@@ -9,12 +9,24 @@ import com.songoda.ultimatetools.enchant.enchants.Blast;
 import com.songoda.ultimatetools.enchant.enchants.MultiTool;
 import com.songoda.ultimatetools.enchant.enchants.RemoteLoot;
 import com.songoda.ultimatetools.enchant.enchants.VeinMiner;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Event;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class EnchantManager {
 
@@ -28,7 +40,6 @@ public class EnchantManager {
     }
 
     public EnchantManager load() {
-
         registerEnchants(new MultiTool(),
                 new RemoteLoot(),
                 new Blast(),
@@ -40,6 +51,7 @@ public class EnchantManager {
     public boolean registerEnchant(AbstractEnchant enchant) {
         registeredEnchants.put(enchant.getIdentifyingType(), enchant);
         Set<Method> methods;
+
         try {
             Method[] publicMethods = enchant.getClass().getMethods();
             methods = new HashSet<>(publicMethods.length, Float.MAX_VALUE);
@@ -48,18 +60,23 @@ public class EnchantManager {
         } catch (NoClassDefFoundError e) {
             return false;
         }
+
         for (Method method : methods) {
             final EnchantHandler permissionHandler = method.getAnnotation(EnchantHandler.class);
             if (permissionHandler == null) continue;
             registeredHandlers.add(new HandlerWrapper(enchant, method));
         }
+
         return true;
     }
 
     public boolean registerEnchants(AbstractEnchant... enchants) {
-        for (AbstractEnchant enchant : enchants)
-            if (!registerEnchant(enchant))
+        for (AbstractEnchant enchant : enchants) {
+            if (!registerEnchant(enchant)) {
                 return false;
+            }
+        }
+
         return true;
     }
 

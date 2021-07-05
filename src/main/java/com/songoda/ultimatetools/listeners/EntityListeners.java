@@ -3,7 +3,6 @@ package com.songoda.ultimatetools.listeners;
 import com.songoda.ultimatetools.UltimateTools;
 import com.songoda.ultimatetools.enchant.EnchantManager;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
@@ -39,17 +38,15 @@ public class EntityListeners implements Listener {
             plugin.getEnchantManager().processEnchant(event, player.getItemInHand());
     }
 
-
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEntityExplode(EntityExplodeEvent event) {
         if (!(event.getEntity() instanceof TNTPrimed)) return;
 
-        Entity entity = ((TNTPrimed)event.getEntity()).getSource();
+        Entity entity = ((TNTPrimed) event.getEntity()).getSource();
         if (!(entity instanceof Player)) return;
 
-        Player player = (Player)entity;
+        Player player = (Player) entity;
         if (enchantManager.isEnchanted(player.getItemInHand()))
             plugin.getEnchantManager().processEnchant(event, player.getItemInHand());
-
     }
 }

@@ -68,15 +68,20 @@ public abstract class AbstractEnchant {
 
     public ItemStack apply(ItemStack item) {
         ItemMeta itemmeta = item.getItemMeta();
+        assert itemmeta != null;
+
         List<String> lore = itemmeta.hasLore() ? itemmeta.getLore() : new ArrayList<>();
+        assert lore != null;
 
         NBTCore nbt = NmsManager.getNbt();
         NBTItem nbtItem = nbt.of(item);
 
         if (nbtItem.has("UTE")) {
-            for (String key : nbtItem.getNBTObject("UTE").asString().split(";"))
-                if (key.equals(getIdentifyingType()))
+            for (String key : nbtItem.getNBTObject("UTE").asString().split(";")) {
+                if (key.equals(getIdentifyingType())) {
                     return item;
+                }
+            }
         }
 
         lore.add(TextUtils.formatText("&7" + name));

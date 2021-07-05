@@ -17,6 +17,7 @@ public class LocationUtils extends com.songoda.core.utils.LocationUtils {
      * Serializes the location specified.
      *
      * @param location The location that is to be saved.
+     *
      * @return The serialized data.
      */
     public static String serializeLocation(Location location) {
@@ -35,6 +36,7 @@ public class LocationUtils extends com.songoda.core.utils.LocationUtils {
      * Deserializes a location from the string.
      *
      * @param str The string to parse.
+     *
      * @return The location that was serialized in the string.
      */
     public static Location unserializeLocation(String str) {
@@ -53,5 +55,4 @@ public class LocationUtils extends com.songoda.core.utils.LocationUtils {
         serializeCache.put(cacheKey, location.clone());
         return location;
     }
-
 }

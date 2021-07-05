@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 public enum ToolType {
-
     SWORD(CompatibleMaterial.NETHERITE_SWORD,
             CompatibleMaterial.DIAMOND_SWORD,
             CompatibleMaterial.GOLDEN_SWORD,
