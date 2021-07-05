@@ -109,7 +109,7 @@
                             <relocations>
                                 <relocation>
                                     <pattern>com.songoda.core</pattern>
-                                    <shadedPattern>${project.groupId}.epicrpg.core</shadedPattern>
+                                    <shadedPattern>com.songoda.ultimatetools.core</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
