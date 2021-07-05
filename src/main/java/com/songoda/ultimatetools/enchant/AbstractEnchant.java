@@ -4,7 +4,6 @@ import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.nms.NmsManager;
 import com.songoda.core.nms.nbt.NBTCore;
 import com.songoda.core.nms.nbt.NBTItem;
-import com.songoda.core.utils.ItemUtils;
 import com.songoda.core.utils.TextUtils;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -85,7 +84,8 @@ public abstract class AbstractEnchant {
         itemmeta.setLore(lore);
         item.setItemMeta(itemmeta);
 
-        ItemUtils.addGlow(item);
+        EnchantManager.setGlowing(item);
+
         nbtItem = nbt.of(item);
 
         if (nbtItem.has("UTE"))
