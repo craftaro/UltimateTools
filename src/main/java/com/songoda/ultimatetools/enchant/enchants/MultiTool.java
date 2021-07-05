@@ -71,23 +71,23 @@ public class MultiTool extends AbstractEnchant {
     private ToolType getType(Block block) {
         switch (CompatibleMaterial.getMaterial(block).getBlockMaterial()) {
             case ACTIVATOR_RAIL:
+            case ANCIENT_DEBRIS:
             case ANDESITE:
             case ANDESITE_SLAB:
             case ANDESITE_STAIRS:
             case ANDESITE_WALL:
-            case ANCIENT_DEBRIS:
             case ANVIL:
             case BASALT:
             case BEACON:
             case BELL:
-            case BLACK_CONCRETE:
-            case BLACK_GLAZED_TERRACOTTA:
-            case BLACK_SHULKER_BOX:
-            case BLACK_TERRACOTTA:
             case BLACKSTONE:
             case BLACKSTONE_SLAB:
             case BLACKSTONE_STAIRS:
             case BLACKSTONE_WALL:
+            case BLACK_CONCRETE:
+            case BLACK_GLAZED_TERRACOTTA:
+            case BLACK_SHULKER_BOX:
+            case BLACK_TERRACOTTA:
             case BLAST_FURNACE:
             case BLUE_CONCRETE:
             case BLUE_GLAZED_TERRACOTTA:
@@ -99,8 +99,8 @@ public class MultiTool extends AbstractEnchant {
             case BREWING_STAND:
             case BRICKS:
             case BRICK_SLAB:
-            case BRICK_WALL:
             case BRICK_STAIRS:
+            case BRICK_WALL:
             case BROWN_CONCRETE:
             case BROWN_GLAZED_TERRACOTTA:
             case BROWN_SHULKER_BOX:
@@ -216,6 +216,7 @@ public class MultiTool extends AbstractEnchant {
             case MOSSY_STONE_BRICK_SLAB:
             case MOSSY_STONE_BRICK_STAIRS:
             case MOSSY_STONE_BRICK_WALL:
+            case NETHERITE_BLOCK:
             case NETHERRACK:
             case NETHER_BRICKS:
             case NETHER_BRICK_FENCE:
@@ -224,7 +225,6 @@ public class MultiTool extends AbstractEnchant {
             case NETHER_BRICK_WALL:
             case NETHER_GOLD_ORE:
             case NETHER_QUARTZ_ORE:
-            case NETHERITE_BLOCK:
             case OBSERVER:
             case OBSIDIAN:
             case ORANGE_CONCRETE:
@@ -332,6 +332,7 @@ public class MultiTool extends AbstractEnchant {
             case YELLOW_SHULKER_BOX:
             case YELLOW_TERRACOTTA:
                 return MultiTool.ToolType.PICKAXE;
+
             case ACACIA_BUTTON:
             case ACACIA_DOOR:
             case ACACIA_FENCE:
@@ -508,6 +509,7 @@ public class MultiTool extends AbstractEnchant {
             case YELLOW_BANNER:
             case YELLOW_WALL_BANNER:
                 return MultiTool.ToolType.AXE;
+
             case BLACK_CONCRETE_POWDER:
             case BLUE_CONCRETE_POWDER:
             case BROWN_CONCRETE_POWDER:
@@ -540,6 +542,7 @@ public class MultiTool extends AbstractEnchant {
             case YELLOW_CONCRETE_POWDER:
                 return MultiTool.ToolType.SHOVEL;
         }
+
         return null;
     }
 }

@@ -109,7 +109,7 @@ public class Blast extends AbstractEnchant {
         return blocks;
     }
 
-    private class TNTBlock {
+    private static class TNTBlock {
 
         private final TNTPrimed tntPrimed;
         private final Location location;

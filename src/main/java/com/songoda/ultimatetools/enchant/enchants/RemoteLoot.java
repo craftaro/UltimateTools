@@ -31,7 +31,7 @@ import java.util.*;
 
 public class RemoteLoot extends AbstractEnchant {
 
-    private Map<UUID, Player> entities = new HashMap<>();
+    private final Map<UUID, Player> entities = new HashMap<>();
     private final Random random;
 
     public RemoteLoot() {

@@ -37,7 +37,7 @@ public enum ToolType {
             CompatibleMaterial.STONE_SHOVEL,
             CompatibleMaterial.WOODEN_SHOVEL);
 
-    private List<CompatibleMaterial> materials = new ArrayList<>();
+    private final List<CompatibleMaterial> materials = new ArrayList<>();
 
     ToolType(CompatibleMaterial... materials) {
         this.materials.addAll(Arrays.asList(materials));
