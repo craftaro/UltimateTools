@@ -4,7 +4,6 @@ import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.nms.NmsManager;
 import com.songoda.core.nms.nbt.NBTCore;
 import com.songoda.core.nms.nbt.NBTItem;
-import com.songoda.core.utils.ItemUtils;
 import com.songoda.core.utils.TextUtils;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -69,15 +68,20 @@ public abstract class AbstractEnchant {
 
     public ItemStack apply(ItemStack item) {
         ItemMeta itemmeta = item.getItemMeta();
+        assert itemmeta != null;
+
         List<String> lore = itemmeta.hasLore() ? itemmeta.getLore() : new ArrayList<>();
+        assert lore != null;
 
         NBTCore nbt = NmsManager.getNbt();
         NBTItem nbtItem = nbt.of(item);
 
         if (nbtItem.has("UTE")) {
-            for (String key : nbtItem.getNBTObject("UTE").asString().split(";"))
-                if (key.equals(getIdentifyingType()))
+            for (String key : nbtItem.getNBTObject("UTE").asString().split(";")) {
+                if (key.equals(getIdentifyingType())) {
                     return item;
+                }
+            }
         }
 
         lore.add(TextUtils.formatText("&7" + name));
@@ -85,7 +89,8 @@ public abstract class AbstractEnchant {
         itemmeta.setLore(lore);
         item.setItemMeta(itemmeta);
 
-        ItemUtils.addGlow(item);
+        EnchantManager.setGlowing(item);
+
         nbtItem = nbt.of(item);
 
         if (nbtItem.has("UTE"))

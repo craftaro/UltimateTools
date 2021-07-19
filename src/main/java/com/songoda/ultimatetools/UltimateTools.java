@@ -12,6 +12,7 @@ import com.songoda.ultimatetools.listeners.BlockListeners;
 import com.songoda.ultimatetools.listeners.EntityListeners;
 import com.songoda.ultimatetools.listeners.InteractListeners;
 import com.songoda.ultimatetools.listeners.InventoryListeners;
+import com.songoda.ultimatetools.listeners.VanillaEnchantListener;
 import com.songoda.ultimatetools.settings.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -19,7 +20,6 @@ import org.bukkit.plugin.PluginManager;
 import java.util.List;
 
 public class UltimateTools extends SongodaPlugin {
-
     private static UltimateTools INSTANCE;
 
     private EnchantManager enchantManager;
@@ -55,22 +55,19 @@ public class UltimateTools extends SongodaPlugin {
         pluginManager.registerEvents(new BlockListeners(this), this);
         pluginManager.registerEvents(new EntityListeners(this), this);
         pluginManager.registerEvents(new InventoryListeners(this), this);
-
+        pluginManager.registerEvents(new VanillaEnchantListener(this), this);
     }
 
     @Override
     public void onPluginDisable() {
-
     }
 
     @Override
     public void onDataLoad() {
-
     }
 
     @Override
     public void onConfigReload() {
-
     }
 
     @Override
@@ -85,5 +82,4 @@ public class UltimateTools extends SongodaPlugin {
     public Locale getLocale() {
         return locale;
     }
-
 }

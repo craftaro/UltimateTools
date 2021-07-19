@@ -15,7 +15,6 @@ public class Settings {
             "Items that shouldn't work with Remote Tools. You should put items in here",
             "that other plugins use to store data with.");
 
-
     public static final ConfigSetting LANGUGE_MODE = new ConfigSetting(config, "System.Language Mode", "en_US",
             "The enabled language file.",
             "More language files (if available) can be found in the plugins data folder.");

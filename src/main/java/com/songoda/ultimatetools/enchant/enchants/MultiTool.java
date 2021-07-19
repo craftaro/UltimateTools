@@ -69,25 +69,28 @@ public class MultiTool extends AbstractEnchant {
     }
 
     private ToolType getType(Block block) {
-        switch (CompatibleMaterial.getMaterial(block).getBlockMaterial()) {
+        switch (CompatibleMaterial.getMaterial(CompatibleMaterial.getMaterial(block).getBlockMaterial())) {
             case ACTIVATOR_RAIL:
+            case AMETHYST_BLOCK:
+            case AMETHYST_CLUSTER:
+            case ANCIENT_DEBRIS:
             case ANDESITE:
             case ANDESITE_SLAB:
             case ANDESITE_STAIRS:
             case ANDESITE_WALL:
-            case ANCIENT_DEBRIS:
             case ANVIL:
             case BASALT:
             case BEACON:
             case BELL:
-            case BLACK_CONCRETE:
-            case BLACK_GLAZED_TERRACOTTA:
-            case BLACK_SHULKER_BOX:
-            case BLACK_TERRACOTTA:
             case BLACKSTONE:
             case BLACKSTONE_SLAB:
             case BLACKSTONE_STAIRS:
             case BLACKSTONE_WALL:
+            case BLACK_CONCRETE:
+            case BLACK_GLAZED_TERRACOTTA:
+            case BLACK_SHULKER_BOX:
+            case BLACK_TERRACOTTA:
+            case BLASTSTONE_SLAB:
             case BLAST_FURNACE:
             case BLUE_CONCRETE:
             case BLUE_GLAZED_TERRACOTTA:
@@ -99,15 +102,19 @@ public class MultiTool extends AbstractEnchant {
             case BREWING_STAND:
             case BRICKS:
             case BRICK_SLAB:
-            case BRICK_WALL:
             case BRICK_STAIRS:
+            case BRICK_WALL:
             case BROWN_CONCRETE:
             case BROWN_GLAZED_TERRACOTTA:
             case BROWN_SHULKER_BOX:
             case BROWN_TERRACOTTA:
             case BUBBLE_CORAL_BLOCK:
+            case BUDDING_AMETHYST:
+            case CALCITE:
             case CAULDRON:
+            case CHAIN:
             case CHIPPED_ANVIL:
+            case CHISELED_DEEPSLATE:
             case CHISELED_NETHER_BRICKS:
             case CHISELED_POLISHED_BLACKSTONE:
             case CHISELED_QUARTZ_BLOCK:
@@ -116,15 +123,26 @@ public class MultiTool extends AbstractEnchant {
             case CHISELED_STONE_BRICKS:
             case COAL_BLOCK:
             case COAL_ORE:
+            case COBBLED_DEEPSLATE:
+            case COBBLED_DEEPSLATE_SLAB:
+            case COBBLED_DEEPSLATE_STAIRS:
+            case COBBLED_DEEPSLATE_WALL:
             case COBBLESTONE:
             case COBBLESTONE_SLAB:
             case COBBLESTONE_STAIRS:
             case COBBLESTONE_WALL:
             case CONDUIT:
+            case COPPER_BLOCK:
+            case COPPER_ORE:
+            case CRACKED_DEEPSLATE_BRICKS:
+            case CRACKED_DEEPSLATE_TILES:
             case CRACKED_NETHER_BRICKS:
             case CRACKED_POLISHED_BLACKSTONE_BRICKS:
             case CRACKED_STONE_BRICKS:
             case CRYING_OBSIDIAN:
+            case CUT_COPPER:
+            case CUT_COPPER_SLAB:
+            case CUT_COPPER_STAIRS:
             case CUT_RED_SANDSTONE:
             case CUT_RED_SANDSTONE_SLAB:
             case CUT_SANDSTONE:
@@ -142,13 +160,32 @@ public class MultiTool extends AbstractEnchant {
             case DEAD_FIRE_CORAL_BLOCK:
             case DEAD_HORN_CORAL_BLOCK:
             case DEAD_TUBE_CORAL_BLOCK:
+            case DEEPSLATE:
+            case DEEPSLATE_BRICKS:
+            case DEEPSLATE_BRICK_SLAB:
+            case DEEPSLATE_BRICK_STAIRS:
+            case DEEPSLATE_BRICK_WALL:
+            case DEEPSLATE_COAL_ORE:
+            case DEEPSLATE_COPPER_ORE:
+            case DEEPSLATE_DIAMOND_ORE:
+            case DEEPSLATE_EMERALD_ORE:
+            case DEEPSLATE_GOLD_ORE:
+            case DEEPSLATE_IRON_ORE:
+            case DEEPSLATE_LAPIS_ORE:
+            case DEEPSLATE_REDSTONE_ORE:
+            case DEEPSLATE_TILES:
+            case DEEPSLATE_TILE_SLAB:
+            case DEEPSLATE_TILE_STAIRS:
+            case DEEPSLATE_TILE_WALL:
             case DETECTOR_RAIL:
             case DIAMOND_BLOCK:
             case DIAMOND_ORE:
             case DIORITE:
+            case DIORITE_SLAB:
             case DIORITE_STAIRS:
             case DIORITE_WALL:
             case DISPENSER:
+            case DRIPSTONE_BLOCK:
             case DROPPER:
             case EMERALD_BLOCK:
             case EMERALD_ORE:
@@ -159,12 +196,17 @@ public class MultiTool extends AbstractEnchant {
             case END_STONE_BRICK_SLAB:
             case END_STONE_BRICK_STAIRS:
             case END_STONE_BRICK_WALL:
+            case EXPOSED_COPPER:
+            case EXPOSED_CUT_COPPER:
+            case EXPOSED_CUT_COPPER_SLAB:
+            case EXPOSED_CUT_COPPER_STAIRS:
             case FIRE_CORAL_BLOCK:
             case FURNACE:
             case GILDED_BLACKSTONE:
             case GOLD_BLOCK:
             case GOLD_ORE:
             case GRANITE:
+            case GRANITE_SLAB:
             case GRANITE_STAIRS:
             case GRANITE_WALL:
             case GRAY_CONCRETE:
@@ -189,6 +231,9 @@ public class MultiTool extends AbstractEnchant {
             case LANTERN:
             case LAPIS_BLOCK:
             case LAPIS_ORE:
+            case LARGE_AMETHYST_BUD:
+            case LAVA_CAULDRON:
+            case LIGHTNING_ROD:
             case LIGHT_BLUE_CONCRETE:
             case LIGHT_BLUE_GLAZED_TERRACOTTA:
             case LIGHT_BLUE_SHULKER_BOX:
@@ -208,6 +253,7 @@ public class MultiTool extends AbstractEnchant {
             case MAGENTA_SHULKER_BOX:
             case MAGENTA_TERRACOTTA:
             case MAGMA_BLOCK:
+            case MEDIUM_AMETHYST_BUD:
             case MOSSY_COBBLESTONE:
             case MOSSY_COBBLESTONE_SLAB:
             case MOSSY_COBBLESTONE_STAIRS:
@@ -216,6 +262,7 @@ public class MultiTool extends AbstractEnchant {
             case MOSSY_STONE_BRICK_SLAB:
             case MOSSY_STONE_BRICK_STAIRS:
             case MOSSY_STONE_BRICK_WALL:
+            case NETHERITE_BLOCK:
             case NETHERRACK:
             case NETHER_BRICKS:
             case NETHER_BRICK_FENCE:
@@ -224,18 +271,24 @@ public class MultiTool extends AbstractEnchant {
             case NETHER_BRICK_WALL:
             case NETHER_GOLD_ORE:
             case NETHER_QUARTZ_ORE:
-            case NETHERITE_BLOCK:
             case OBSERVER:
             case OBSIDIAN:
             case ORANGE_CONCRETE:
             case ORANGE_GLAZED_TERRACOTTA:
             case ORANGE_SHULKER_BOX:
             case ORANGE_TERRACOTTA:
+            case OXIDIZED_COPPER:
+            case OXIDIZED_CUT_COPPER:
+            case OXIDIZED_CUT_COPPER_SLAB:
+            case OXIDIZED_CUT_COPPER_STAIRS:
             case PACKED_ICE:
+            case PETRIFIED_OAK_SLAB:
             case PINK_CONCRETE:
             case PINK_GLAZED_TERRACOTTA:
             case PINK_SHULKER_BOX:
             case PINK_TERRACOTTA:
+            case PISTON:
+            case POINTED_DRIPSTONE:
             case POLISHED_ANDESITE:
             case POLISHED_ANDESITE_SLAB:
             case POLISHED_ANDESITE_STAIRS:
@@ -248,12 +301,17 @@ public class MultiTool extends AbstractEnchant {
             case POLISHED_BLACKSTONE_SLAB:
             case POLISHED_BLACKSTONE_STAIRS:
             case POLISHED_BLACKSTONE_WALL:
+            case POLISHED_DEEPSLATE:
+            case POLISHED_DEEPSLATE_SLAB:
+            case POLISHED_DEEPSLATE_STAIRS:
+            case POLISHED_DEEPSLATE_WALL:
             case POLISHED_DIORITE:
             case POLISHED_DIORITE_SLAB:
             case POLISHED_DIORITE_STAIRS:
             case POLISHED_GRANITE:
             case POLISHED_GRANITE_SLAB:
             case POLISHED_GRANITE_STAIRS:
+            case POWDER_SNOW_CAULDRON:
             case POWERED_RAIL:
             case PRISMARINE:
             case PRISMARINE_BRICKS:
@@ -276,6 +334,9 @@ public class MultiTool extends AbstractEnchant {
             case QUARTZ_SLAB:
             case QUARTZ_STAIRS:
             case RAIL:
+            case RAW_COPPER_BLOCK:
+            case RAW_GOLD_BLOCK:
+            case RAW_IRON_BLOCK:
             case REDSTONE_BLOCK:
             case REDSTONE_ORE:
             case RED_CONCRETE:
@@ -296,7 +357,9 @@ public class MultiTool extends AbstractEnchant {
             case SANDSTONE_STAIRS:
             case SANDSTONE_WALL:
             case SHULKER_BOX:
+            case SMALL_AMETHYST_BUD:
             case SMOKER:
+            case SMOOTH_BASALT:
             case SMOOTH_QUARTZ:
             case SMOOTH_QUARTZ_SLAB:
             case SMOOTH_QUARTZ_STAIRS:
@@ -310,6 +373,7 @@ public class MultiTool extends AbstractEnchant {
             case SMOOTH_STONE_SLAB:
             case SOUL_SOIL:
             case SPAWNER:
+            case STICKY_PISTON:
             case STONE:
             case STONECUTTER:
             case STONE_BRICKS:
@@ -323,6 +387,28 @@ public class MultiTool extends AbstractEnchant {
             case TARGET:
             case TERRACOTTA:
             case TUBE_CORAL_BLOCK:
+            case TUFF:
+            case WATER_CAULDRON:
+            case WAXED_COPPER_BLOCK:
+            case WAXED_CUT_COPPER:
+            case WAXED_CUT_COPPER_SLAB:
+            case WAXED_CUT_COPPER_STAIRS:
+            case WAXED_EXPOSED_COPPER:
+            case WAXED_EXPOSED_CUT_COPPER:
+            case WAXED_EXPOSED_CUT_COPPER_SLAB:
+            case WAXED_EXPOSED_CUT_COPPER_STAIRS:
+            case WAXED_OXIDIZED_COPPER:
+            case WAXED_OXIDIZED_CUT_COPPER:
+            case WAXED_OXIDIZED_CUT_COPPER_SLAB:
+            case WAXED_OXIDIZED_CUT_COPPER_STAIRS:
+            case WAXED_WEATHERED_COPPER:
+            case WAXED_WEATHERED_CUT_COPPER:
+            case WAXED_WEATHERED_CUT_COPPER_SLAB:
+            case WAXED_WEATHERED_CUT_COPPER_STAIRS:
+            case WEATHERED_COPPER:
+            case WEATHERED_CUT_COPPER:
+            case WEATHERED_CUT_COPPER_SLAB:
+            case WEATHERED_CUT_COPPER_STAIRS:
             case WHITE_CONCRETE:
             case WHITE_GLAZED_TERRACOTTA:
             case WHITE_SHULKER_BOX:
@@ -332,6 +418,7 @@ public class MultiTool extends AbstractEnchant {
             case YELLOW_SHULKER_BOX:
             case YELLOW_TERRACOTTA:
                 return MultiTool.ToolType.PICKAXE;
+
             case ACACIA_BUTTON:
             case ACACIA_DOOR:
             case ACACIA_FENCE:
@@ -346,6 +433,9 @@ public class MultiTool extends AbstractEnchant {
             case ACACIA_WALL_SIGN:
             case ACACIA_WOOD:
             case BARREL:
+            case BEEHIVE:
+            case BEE_NEST:
+            case BIG_DRIPLEAF:
             case BIRCH_BUTTON:
             case BIRCH_DOOR:
             case BIRCH_FENCE:
@@ -427,6 +517,12 @@ public class MultiTool extends AbstractEnchant {
             case JUNGLE_WOOD:
             case LADDER:
             case LECTERN:
+            case LIGHT_BLUE_BANNER:
+            case LIGHT_BLUE_WALL_BANNER:
+            case LIGHT_GRAY_BANNER:
+            case LIGHT_GRAY_WALL_BANNER:
+            case LIME_BANNER:
+            case LIME_WALL_BANNER:
             case LOOM:
             case MAGENTA_BANNER:
             case MAGENTA_WALL_BANNER:
@@ -445,6 +541,8 @@ public class MultiTool extends AbstractEnchant {
             case OAK_TRAPDOOR:
             case OAK_WALL_SIGN:
             case OAK_WOOD:
+            case ORANGE_BANNER:
+            case ORANGE_WALL_BANNER:
             case PINK_BANNER:
             case PINK_WALL_BANNER:
             case POLISHED_BLACKSTONE_BUTTON:
@@ -508,6 +606,7 @@ public class MultiTool extends AbstractEnchant {
             case YELLOW_BANNER:
             case YELLOW_WALL_BANNER:
                 return MultiTool.ToolType.AXE;
+
             case BLACK_CONCRETE_POWDER:
             case BLUE_CONCRETE_POWDER:
             case BROWN_CONCRETE_POWDER:
@@ -515,9 +614,9 @@ public class MultiTool extends AbstractEnchant {
             case COARSE_DIRT:
             case CYAN_CONCRETE_POWDER:
             case DIRT:
+            case DIRT_PATH:
             case FARMLAND:
             case GRASS_BLOCK:
-            case GRASS_PATH:
             case GRAVEL:
             case GRAY_CONCRETE_POWDER:
             case GREEN_CONCRETE_POWDER:
@@ -540,6 +639,7 @@ public class MultiTool extends AbstractEnchant {
             case YELLOW_CONCRETE_POWDER:
                 return MultiTool.ToolType.SHOVEL;
         }
+
         return null;
     }
 }

@@ -27,11 +27,16 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 public class RemoteLoot extends AbstractEnchant {
 
-    private Map<UUID, Player> entities = new HashMap<>();
+    private final Map<UUID, Player> entities = new HashMap<>();
     private final Random random;
 
     public RemoteLoot() {
@@ -103,7 +108,6 @@ public class RemoteLoot extends AbstractEnchant {
             player.setItemInHand(nbtItem.finish());
             event.setCancelled(true);
         }
-
     }
 
     @EnchantHandler
@@ -139,7 +143,7 @@ public class RemoteLoot extends AbstractEnchant {
                 drops.add(getOreDrop(material, random));
         }
         if (meta.hasEnchant(Enchantment.SILK_TOUCH)) {
-                ih.getInventory().addItem(CompatibleMaterial.getMaterial(event.getBlock()).getItem());
+            ih.getInventory().addItem(CompatibleMaterial.getMaterial(event.getBlock()).getItem());
         } else {
             if (meta.hasEnchant(Enchantment.LOOT_BONUS_BLOCKS)) {
                 int level = meta.getEnchantLevel(Enchantment.LOOT_BONUS_BLOCKS);
@@ -165,7 +169,6 @@ public class RemoteLoot extends AbstractEnchant {
         if (event.getExpToDrop() > 0)
             player.getWorld().spawn(event.getBlock().getLocation(), ExperienceOrb.class).setExperience(event.getExpToDrop());
         event.getBlock().setType(Material.AIR);
-
     }
 
     private int calculateFortuneDrops(CompatibleMaterial material, int level, Random random) {

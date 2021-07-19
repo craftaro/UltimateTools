@@ -14,19 +14,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created by songoda on 3/14/2017.
  */
 public class InventoryListeners implements Listener {
-
-    private final UltimateTools plugin;
     private final EnchantManager enchantManager;
 
     public InventoryListeners(UltimateTools plugin) {
-        this.plugin = plugin;
         this.enchantManager = plugin.getEnchantManager();
     }
 
@@ -45,7 +39,7 @@ public class InventoryListeners implements Listener {
 
             NBTCore nbt = NmsManager.getNbt();
             NBTItem nbtItem = nbt.of(book);
-            List<String> enchants = Arrays.asList(nbtItem.getNBTObject("UTE").asString().split(";"));
+            String[] enchants = nbtItem.getNBTObject("UTE").asString().split(";");
 
             for (String enchantStr : enchants) {
                 AbstractEnchant enchant = enchantManager.getEnchant(enchantStr);

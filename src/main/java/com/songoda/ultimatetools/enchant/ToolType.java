@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 public enum ToolType {
-
     SWORD(CompatibleMaterial.NETHERITE_SWORD,
             CompatibleMaterial.DIAMOND_SWORD,
             CompatibleMaterial.GOLDEN_SWORD,
@@ -37,7 +36,7 @@ public enum ToolType {
             CompatibleMaterial.STONE_SHOVEL,
             CompatibleMaterial.WOODEN_SHOVEL);
 
-    private List<CompatibleMaterial> materials = new ArrayList<>();
+    private final List<CompatibleMaterial> materials = new ArrayList<>();
 
     ToolType(CompatibleMaterial... materials) {
         this.materials.addAll(Arrays.asList(materials));

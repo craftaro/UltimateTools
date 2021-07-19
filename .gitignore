@@ -1,7 +1,9 @@
-\.idea
-\target
-UltimateStacker.iml
-.settings/
-.classpath
-.project
-*.iml
+/target/
+
+/.idea/
+/*.iml
+
+/.settings/
+/.classpath
+/.project
+

@@ -22,6 +22,5 @@ public class InteractListeners implements Listener {
         if (CompatibleHand.getHand(event) == CompatibleHand.OFF_HAND) return;
         if (enchantManager.isEnchanted(event.getPlayer().getItemInHand()))
             plugin.getEnchantManager().processEnchant(event, event.getPlayer().getItemInHand());
-
     }
 }
