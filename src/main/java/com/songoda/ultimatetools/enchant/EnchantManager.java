@@ -149,7 +149,7 @@ public class EnchantManager {
      * Enchants the item with {@link Enchantment#ARROW_INFINITE} level 99 and adds {@link ItemFlag#HIDE_ENCHANTS} to it.
      * <br><br>
      *
-     * <b>If the item is a {@link Material#BOW} or {@link Material#CROSSBOW}, {@link Enchantment#CHANNELING} is used instead.</b>
+     * <b>If the item is a {@link Material#BOW} or {@link CompatibleMaterial#CROSSBOW}, {@link Enchantment#LURE} is used instead.</b>
      *
      * <br><br>
      * Does nothing to the item if it is already glowing ({@link #isGlowing(ItemStack)} or {@link ItemStack#getEnchantments()} is empty)
@@ -160,8 +160,8 @@ public class EnchantManager {
      */
     public static void setGlowing(ItemStack item) {
         if (!isGlowing(item) && item.getEnchantments().isEmpty()) {
-            if (item.getType() == Material.BOW || item.getType() == Material.CROSSBOW) {
-                item.addUnsafeEnchantment(Enchantment.CHANNELING, 99);
+            if (item.getType() == Material.BOW || CompatibleMaterial.getMaterial(item.getType()) == CompatibleMaterial.CROSSBOW) {
+                item.addUnsafeEnchantment(Enchantment.LURE, 99);
             } else {
                 item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 99);
             }
@@ -185,8 +185,8 @@ public class EnchantManager {
      */
     public static void unsetGlowing(ItemStack item) {
         if (isGlowing(item)) {
-            if (item.getType() == Material.BOW || item.getType() == Material.CROSSBOW) {
-                item.removeEnchantment(Enchantment.CHANNELING);
+            if (item.getType() == Material.BOW || CompatibleMaterial.getMaterial(item.getType()) == CompatibleMaterial.CROSSBOW) {
+                item.removeEnchantment(Enchantment.LURE);
             } else {
                 item.removeEnchantment(Enchantment.ARROW_INFINITE);
             }
