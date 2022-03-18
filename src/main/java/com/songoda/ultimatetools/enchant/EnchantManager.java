@@ -1,9 +1,7 @@
 package com.songoda.ultimatetools.enchant;
 
 import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.nms.NmsManager;
-import com.songoda.core.nms.nbt.NBTCore;
-import com.songoda.core.nms.nbt.NBTItem;
+import com.songoda.core.third_party.de.tr7zw.nbtapi.NBTItem;
 import com.songoda.ultimatetools.UltimateTools;
 import com.songoda.ultimatetools.enchant.enchants.Blast;
 import com.songoda.ultimatetools.enchant.enchants.MultiTool;
@@ -81,19 +79,15 @@ public class EnchantManager {
     }
 
     public boolean isEnchanted(ItemStack item) {
-        NBTCore nbt = NmsManager.getNbt();
-        NBTItem nbtItem = nbt.of(item);
-
-        return nbtItem.has("UTE");
+        return item != null && !item.getType().isAir() && new NBTItem(item).hasKey("UTE");
     }
 
     public void processEnchant(Event event, ItemStack item) {
         if (CompatibleMaterial.getMaterial(item) == CompatibleMaterial.ENCHANTED_BOOK)
             return;
 
-        NBTCore nbt = NmsManager.getNbt();
-        NBTItem nbtItem = nbt.of(item);
-        List<String> enchants = Arrays.asList(nbtItem.getNBTObject("UTE").asString().split(";"));
+        NBTItem nbtItem = new NBTItem(item);
+        List<String> enchants = Arrays.asList(nbtItem.getString("UTE").split(";"));
 
         for (HandlerWrapper wrapper : registeredHandlers) {
             if (!enchants.contains(wrapper.getEnchant().getIdentifyingType()))

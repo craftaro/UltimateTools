@@ -2,9 +2,7 @@ package com.songoda.ultimatetools.enchant.enchants;
 
 import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.compatibility.ServerVersion;
-import com.songoda.core.nms.NmsManager;
-import com.songoda.core.nms.nbt.NBTCore;
-import com.songoda.core.nms.nbt.NBTItem;
+import com.songoda.core.third_party.de.tr7zw.nbtapi.NBTItem;
 import com.songoda.ultimatetools.UltimateTools;
 import com.songoda.ultimatetools.enchant.AbstractEnchant;
 import com.songoda.ultimatetools.enchant.EnchantHandler;
@@ -35,7 +33,6 @@ import java.util.Random;
 import java.util.UUID;
 
 public class RemoteLoot extends AbstractEnchant {
-
     private final Map<UUID, Player> entities = new HashMap<>();
     private final Random random;
 
@@ -61,13 +58,12 @@ public class RemoteLoot extends AbstractEnchant {
         Player player = entities.get(event.getEntity().getUniqueId());
 
         ItemStack tool = player.getItemInHand();
-        NBTCore nbt = NmsManager.getNbt();
-        NBTItem nbtItem = nbt.of(tool);
+        NBTItem nbtItem = new NBTItem(tool);
 
-        if (!nbtItem.has("RLL") || nbtItem.getNBTObject("RLL") == null)
+        if (!nbtItem.hasKey("RLL") || nbtItem.getString("RLL") == null)
             return;
 
-        Location location = LocationUtils.unserializeLocation(nbtItem.getNBTObject("RLL").asString());
+        Location location = LocationUtils.unserializeLocation(nbtItem.getString("RLL"));
 
         if (location.getBlock().getType() != Material.CHEST) return;
 
@@ -92,20 +88,19 @@ public class RemoteLoot extends AbstractEnchant {
 
         if (event.getClickedBlock().getType() == Material.CHEST) {
             ItemStack tool = event.getPlayer().getInventory().getItemInHand();
-            NBTCore nbt = NmsManager.getNbt();
-            NBTItem nbtItem = nbt.of(tool);
-            boolean isLinked = nbtItem.has("RLL");
+            NBTItem nbtItem = new NBTItem(tool);
+            boolean isLinked = nbtItem.hasKey("RLL");
 
             if (isLinked) {
                 UltimateTools.getInstance().getLocale()
                         .getMessage("event.remoteloot.unlink").sendPrefixedMessage(player);
-                nbtItem.remove("RLL");
+                nbtItem.removeKey("RLL");
             } else {
                 UltimateTools.getInstance().getLocale()
                         .getMessage("event.remoteloot.link").sendPrefixedMessage(player);
-                nbtItem.set("RLL", LocationUtils.serializeLocation(event.getClickedBlock().getLocation()));
+                nbtItem.setString("RLL", LocationUtils.serializeLocation(event.getClickedBlock().getLocation()));
             }
-            player.setItemInHand(nbtItem.finish());
+            player.setItemInHand(nbtItem.getItem());
             event.setCancelled(true);
         }
     }
@@ -117,10 +112,9 @@ public class RemoteLoot extends AbstractEnchant {
         ItemMeta meta = tool.getItemMeta();
         Location location = null;
 
-        NBTCore nbt = NmsManager.getNbt();
-        NBTItem nbtItem = nbt.of(tool);
-        if (nbtItem.has("RLL")) //Remote Loot Location
-            location = LocationUtils.unserializeLocation(nbtItem.getNBTObject("RLL").asString());
+        NBTItem nbtItem = new NBTItem(tool);
+        if (nbtItem.hasKey("RLL")) //Remote Loot Location
+            location = LocationUtils.unserializeLocation(nbtItem.getString("RLL"));
 
         CompatibleMaterial material = CompatibleMaterial.getMaterial(event.getBlock());
 

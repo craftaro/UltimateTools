@@ -1,9 +1,7 @@
 package com.songoda.ultimatetools.enchant;
 
 import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.nms.NmsManager;
-import com.songoda.core.nms.nbt.NBTCore;
-import com.songoda.core.nms.nbt.NBTItem;
+import com.songoda.core.third_party.de.tr7zw.nbtapi.NBTItem;
 import com.songoda.core.utils.TextUtils;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -73,11 +71,10 @@ public abstract class AbstractEnchant {
         List<String> lore = itemmeta.hasLore() ? itemmeta.getLore() : new ArrayList<>();
         assert lore != null;
 
-        NBTCore nbt = NmsManager.getNbt();
-        NBTItem nbtItem = nbt.of(item);
+        NBTItem nbtItem = new NBTItem(item);
 
-        if (nbtItem.has("UTE")) {
-            for (String key : nbtItem.getNBTObject("UTE").asString().split(";")) {
+        if (nbtItem.hasKey("UTE")) {
+            for (String key : nbtItem.getString("UTE").split(";")) {
                 if (key.equals(getIdentifyingType())) {
                     return item;
                 }
@@ -91,13 +88,13 @@ public abstract class AbstractEnchant {
 
         EnchantManager.setGlowing(item);
 
-        nbtItem = nbt.of(item);
+        nbtItem = new NBTItem(item);
 
-        if (nbtItem.has("UTE"))
-            nbtItem.set("UTE", nbtItem.getNBTObject("UTE").asString() + ";" + getIdentifyingType());
+        if (nbtItem.hasKey("UTE"))
+            nbtItem.setString("UTE", nbtItem.getString("UTE") + ";" + getIdentifyingType());
         else
-            nbtItem.set("UTE", getIdentifyingType());
-        return nbtItem.finish();
+            nbtItem.setString("UTE", getIdentifyingType());
+        return nbtItem.getItem();
     }
 
     public ItemStack getBook() {
@@ -117,11 +114,10 @@ public abstract class AbstractEnchant {
         meta.setLore(lore);
         book.setItemMeta(meta);
 
-        NBTCore nbt = NmsManager.getNbt();
-        NBTItem nbtItem = nbt.of(book);
-        nbtItem.set("UTE", getIdentifyingType()); // UltimateToolsEnchant
+        NBTItem nbtItem = new NBTItem(book);
+        nbtItem.setString("UTE", getIdentifyingType()); // UltimateToolsEnchant
 
-        return nbtItem.finish();
+        return nbtItem.getItem();
     }
 
     public EnchantType getType() {
