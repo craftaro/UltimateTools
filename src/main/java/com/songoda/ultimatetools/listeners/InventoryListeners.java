@@ -1,9 +1,7 @@
 package com.songoda.ultimatetools.listeners;
 
 import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.nms.NmsManager;
-import com.songoda.core.nms.nbt.NBTCore;
-import com.songoda.core.nms.nbt.NBTItem;
+import com.songoda.core.third_party.de.tr7zw.nbtapi.NBTItem;
 import com.songoda.ultimatetools.UltimateTools;
 import com.songoda.ultimatetools.enchant.AbstractEnchant;
 import com.songoda.ultimatetools.enchant.EnchantManager;
@@ -37,9 +35,8 @@ public class InventoryListeners implements Listener {
             ItemStack tool = event.getCurrentItem();
             if (!enchantManager.isEnchanted(book)) return;
 
-            NBTCore nbt = NmsManager.getNbt();
-            NBTItem nbtItem = nbt.of(book);
-            String[] enchants = nbtItem.getNBTObject("UTE").asString().split(";");
+            NBTItem nbtItem = new NBTItem(book);
+            String[] enchants = nbtItem.getString("UTE").split(";");
 
             for (String enchantStr : enchants) {
                 AbstractEnchant enchant = enchantManager.getEnchant(enchantStr);
