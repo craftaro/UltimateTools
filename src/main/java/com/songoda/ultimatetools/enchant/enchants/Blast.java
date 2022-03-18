@@ -1,5 +1,6 @@
 package com.songoda.ultimatetools.enchant.enchants;
 
+import com.songoda.core.compatibility.MethodMapping;
 import com.songoda.core.nms.ReflectionUtils;
 import com.songoda.ultimatetools.enchant.AbstractEnchant;
 import com.songoda.ultimatetools.enchant.EnchantHandler;
@@ -78,12 +79,8 @@ public class Blast extends AbstractEnchant {
         // Use reflections for older server versions
         if (useLegacyTnt) {
             if (playerGetHandle == null) {
-                try {
-                    playerGetHandle = player.getClass().getDeclaredMethod("getHandle");
-                    tntGetHandle = tntPrimed.getClass().getDeclaredMethod("getHandle");
-                } catch (NoSuchMethodException ex) {
-                    ex.printStackTrace();
-                }
+                playerGetHandle = MethodMapping.CB_GENERIC__GET_HANDLE.getMethod(player.getClass());
+                tntGetHandle = MethodMapping.CB_GENERIC__GET_HANDLE.getMethod(tntPrimed.getClass());
             }
 
             try {
