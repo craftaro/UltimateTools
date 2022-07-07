@@ -6,7 +6,7 @@
 
     <groupId>com.songoda</groupId>
     <artifactId>UltimateTools</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
 
     <properties>
         <java.version>1.8</java.version>
@@ -137,7 +137,7 @@
         <dependency>
             <groupId>com.songoda</groupId>
             <artifactId>SongodaCore</artifactId>
-            <version>2.6.12</version>
+            <version>2.6.13</version>
             <scope>compile</scope>
         </dependency>
 
