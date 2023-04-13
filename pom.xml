@@ -6,7 +6,7 @@
 
     <groupId>com.songoda</groupId>
     <artifactId>UltimateTools</artifactId>
-    <version>1.2.6-BETA</version>
+    <version>1.2.6</version>
 
     <properties>
         <java.version>1.8</java.version>
