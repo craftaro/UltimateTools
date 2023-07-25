@@ -1,9 +1,9 @@
-package com.songoda.ultimatetools.enchant.enchants;
+package com.craftaro.ultimatetools.enchant.enchants;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.ultimatetools.enchant.AbstractEnchant;
-import com.songoda.ultimatetools.enchant.EnchantHandler;
-import com.songoda.ultimatetools.enchant.EnchantType;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.ultimatetools.enchant.AbstractEnchant;
+import com.craftaro.ultimatetools.enchant.EnchantHandler;
+import com.craftaro.ultimatetools.enchant.EnchantType;
 import org.bukkit.block.Block;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -12,7 +12,7 @@ public class MultiTool extends AbstractEnchant {
 
     public MultiTool() {
         super(EnchantType.MULTI_TOOL, "Multi Tool", 1, 3,
-                com.songoda.ultimatetools.enchant.ToolType.PICKAXE, com.songoda.ultimatetools.enchant.ToolType.AXE, com.songoda.ultimatetools.enchant.ToolType.SHOVEL);
+                com.craftaro.ultimatetools.enchant.ToolType.PICKAXE, com.craftaro.ultimatetools.enchant.ToolType.AXE, com.craftaro.ultimatetools.enchant.ToolType.SHOVEL);
     }
 
     @EnchantHandler
@@ -24,43 +24,43 @@ public class MultiTool extends AbstractEnchant {
     private void updateType(ToolType type, ItemStack tool) {
         if (type == MultiTool.ToolType.PICKAXE) {
             if (tool.getType().name().contains("NETHERITE"))
-                tool.setType(CompatibleMaterial.NETHERITE_PICKAXE.getMaterial());
+                tool.setType(XMaterial.NETHERITE_PICKAXE.parseMaterial());
             else if (tool.getType().name().contains("DIAMOND"))
-                tool.setType(CompatibleMaterial.DIAMOND_PICKAXE.getMaterial());
+                tool.setType(XMaterial.DIAMOND_PICKAXE.parseMaterial());
             else if (tool.getType().name().contains("IRON"))
-                tool.setType(CompatibleMaterial.IRON_PICKAXE.getMaterial());
+                tool.setType(XMaterial.IRON_PICKAXE.parseMaterial());
             else if (tool.getType().name().contains("STONE"))
-                tool.setType(CompatibleMaterial.STONE_PICKAXE.getMaterial());
+                tool.setType(XMaterial.STONE_PICKAXE.parseMaterial());
             else if (tool.getType().name().contains("WOOD"))
-                tool.setType(CompatibleMaterial.WOODEN_PICKAXE.getMaterial());
+                tool.setType(XMaterial.WOODEN_PICKAXE.parseMaterial());
             else if (tool.getType().name().contains("GOLD"))
-                tool.setType(CompatibleMaterial.GOLDEN_PICKAXE.getMaterial());
+                tool.setType(XMaterial.GOLDEN_PICKAXE.parseMaterial());
         } else if (type == MultiTool.ToolType.AXE) {
             if (tool.getType().name().contains("NETHERITE"))
-                tool.setType(CompatibleMaterial.NETHERITE_AXE.getMaterial());
+                tool.setType(XMaterial.NETHERITE_AXE.parseMaterial());
             else if (tool.getType().name().contains("DIAMOND"))
-                tool.setType(CompatibleMaterial.DIAMOND_AXE.getMaterial());
+                tool.setType(XMaterial.DIAMOND_AXE.parseMaterial());
             else if (tool.getType().name().contains("IRON"))
-                tool.setType(CompatibleMaterial.IRON_AXE.getMaterial());
+                tool.setType(XMaterial.IRON_AXE.parseMaterial());
             else if (tool.getType().name().contains("STONE"))
-                tool.setType(CompatibleMaterial.STONE_AXE.getMaterial());
+                tool.setType(XMaterial.STONE_AXE.parseMaterial());
             else if (tool.getType().name().contains("WOOD"))
-                tool.setType(CompatibleMaterial.WOODEN_AXE.getMaterial());
+                tool.setType(XMaterial.WOODEN_AXE.parseMaterial());
             else if (tool.getType().name().contains("GOLD"))
-                tool.setType(CompatibleMaterial.GOLDEN_AXE.getMaterial());
+                tool.setType(XMaterial.GOLDEN_AXE.parseMaterial());
         } else if (type == MultiTool.ToolType.SHOVEL) {
             if (tool.getType().name().contains("NETHERITE"))
-                tool.setType(CompatibleMaterial.NETHERITE_SHOVEL.getMaterial());
+                tool.setType(XMaterial.NETHERITE_SHOVEL.parseMaterial());
             else if (tool.getType().name().contains("DIAMOND"))
-                tool.setType(CompatibleMaterial.DIAMOND_SHOVEL.getMaterial());
+                tool.setType(XMaterial.DIAMOND_SHOVEL.parseMaterial());
             else if (tool.getType().name().contains("IRON"))
-                tool.setType(CompatibleMaterial.IRON_SHOVEL.getMaterial());
+                tool.setType(XMaterial.IRON_SHOVEL.parseMaterial());
             else if (tool.getType().name().contains("STONE"))
-                tool.setType(CompatibleMaterial.STONE_SHOVEL.getMaterial());
+                tool.setType(XMaterial.STONE_SHOVEL.parseMaterial());
             else if (tool.getType().name().contains("WOOD"))
-                tool.setType(CompatibleMaterial.WOODEN_SHOVEL.getMaterial());
+                tool.setType(XMaterial.WOODEN_SHOVEL.parseMaterial());
             else if (tool.getType().name().contains("GOLD"))
-                tool.setType(CompatibleMaterial.GOLDEN_SHOVEL.getMaterial());
+                tool.setType(XMaterial.GOLDEN_SHOVEL.parseMaterial());
         }
     }
 
@@ -69,7 +69,7 @@ public class MultiTool extends AbstractEnchant {
     }
 
     private ToolType getType(Block block) {
-        switch (CompatibleMaterial.getMaterial(CompatibleMaterial.getMaterial(block).getBlockMaterial())) {
+        switch (XMaterial.matchXMaterial(block.getType())) {
             case ACTIVATOR_RAIL:
             case AMETHYST_BLOCK:
             case AMETHYST_CLUSTER:
@@ -90,7 +90,7 @@ public class MultiTool extends AbstractEnchant {
             case BLACK_GLAZED_TERRACOTTA:
             case BLACK_SHULKER_BOX:
             case BLACK_TERRACOTTA:
-            case BLASTSTONE_SLAB:
+            //case BLASTSTONE_SLAB:
             case BLAST_FURNACE:
             case BLUE_CONCRETE:
             case BLUE_GLAZED_TERRACOTTA:

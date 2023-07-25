@@ -1,11 +1,11 @@
-package com.songoda.ultimatetools.enchant.enchants;
+package com.craftaro.ultimatetools.enchant.enchants;
 
-import com.songoda.core.compatibility.MethodMapping;
-import com.songoda.core.nms.ReflectionUtils;
-import com.songoda.ultimatetools.enchant.AbstractEnchant;
-import com.songoda.ultimatetools.enchant.EnchantHandler;
-import com.songoda.ultimatetools.enchant.EnchantType;
-import com.songoda.ultimatetools.enchant.ToolType;
+import com.craftaro.core.compatibility.MethodMapping;
+import com.craftaro.core.nms.ReflectionUtils;
+import com.craftaro.ultimatetools.enchant.AbstractEnchant;
+import com.craftaro.ultimatetools.enchant.EnchantHandler;
+import com.craftaro.ultimatetools.enchant.EnchantType;
+import com.craftaro.ultimatetools.enchant.ToolType;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

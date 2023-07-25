@@ -1,4 +1,4 @@
-package com.songoda.ultimatetools.utils;
+package com.craftaro.ultimatetools.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LocationUtils extends com.songoda.core.utils.LocationUtils {
+public class LocationUtils extends com.craftaro.core.utils.LocationUtils {
 
     private static final Map<String, Location> serializeCache = new HashMap<>();
 

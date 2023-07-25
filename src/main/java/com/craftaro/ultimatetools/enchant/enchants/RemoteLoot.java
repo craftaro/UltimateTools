@@ -1,15 +1,15 @@
-package com.songoda.ultimatetools.enchant.enchants;
+package com.craftaro.ultimatetools.enchant.enchants;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.compatibility.ServerVersion;
-import com.songoda.core.third_party.de.tr7zw.nbtapi.NBTItem;
-import com.songoda.ultimatetools.UltimateTools;
-import com.songoda.ultimatetools.enchant.AbstractEnchant;
-import com.songoda.ultimatetools.enchant.EnchantHandler;
-import com.songoda.ultimatetools.enchant.EnchantType;
-import com.songoda.ultimatetools.enchant.ToolType;
-import com.songoda.ultimatetools.settings.Settings;
-import com.songoda.ultimatetools.utils.LocationUtils;
+import com.craftaro.core.compatibility.ServerVersion;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.core.third_party.de.tr7zw.nbtapi.NBTItem;
+import com.craftaro.ultimatetools.UltimateTools;
+import com.craftaro.ultimatetools.enchant.AbstractEnchant;
+import com.craftaro.ultimatetools.enchant.EnchantHandler;
+import com.craftaro.ultimatetools.enchant.EnchantType;
+import com.craftaro.ultimatetools.enchant.ToolType;
+import com.craftaro.ultimatetools.settings.Settings;
+import com.craftaro.ultimatetools.utils.LocationUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -32,7 +32,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-public class RemoteLoot extends AbstractEnchant {
+public class
+RemoteLoot extends AbstractEnchant {
     private final Map<UUID, Player> entities = new HashMap<>();
     private final Random random;
 
@@ -116,14 +117,14 @@ public class RemoteLoot extends AbstractEnchant {
         if (nbtItem.hasKey("RLL")) //Remote Loot Location
             location = LocationUtils.unserializeLocation(nbtItem.getString("RLL"));
 
-        CompatibleMaterial material = CompatibleMaterial.getMaterial(event.getBlock());
+        XMaterial material = XMaterial.matchXMaterial(event.getBlock().getType());
 
         if (location == null
-                || material == CompatibleMaterial.CHEST
+                || material == XMaterial.CHEST
                 || Settings.REMOTE_TOOLS_BLACKLIST.getStringList().contains(event.getBlock().getType().name())
 
                 || material.name().contains("SHULKER")
-                || material == CompatibleMaterial.SPAWNER) {
+                || material == XMaterial.SPAWNER) {
             return;
         }
 
@@ -137,7 +138,7 @@ public class RemoteLoot extends AbstractEnchant {
                 drops.add(getOreDrop(material, random));
         }
         if (meta.hasEnchant(Enchantment.SILK_TOUCH)) {
-            ih.getInventory().addItem(CompatibleMaterial.getMaterial(event.getBlock()).getItem());
+            ih.getInventory().addItem(XMaterial.matchXMaterial(event.getBlock().getType()).parseItem());
         } else {
             if (meta.hasEnchant(Enchantment.LOOT_BONUS_BLOCKS)) {
                 int level = meta.getEnchantLevel(Enchantment.LOOT_BONUS_BLOCKS);
@@ -165,48 +166,48 @@ public class RemoteLoot extends AbstractEnchant {
         event.getBlock().setType(Material.AIR);
     }
 
-    private int calculateFortuneDrops(CompatibleMaterial material, int level, Random random) {
-        if (material != CompatibleMaterial.COAL_ORE
-                && material != CompatibleMaterial.DIAMOND_ORE
-                && material != CompatibleMaterial.EMERALD_ORE
-                && material != CompatibleMaterial.NETHER_QUARTZ_ORE
-                && material != CompatibleMaterial.LAPIS_ORE) return 1;
+    private int calculateFortuneDrops(XMaterial material, int level, Random random) {
+        if (material != XMaterial.COAL_ORE
+                && material != XMaterial.DIAMOND_ORE
+                && material != XMaterial.EMERALD_ORE
+                && material != XMaterial.NETHER_QUARTZ_ORE
+                && material != XMaterial.LAPIS_ORE) return 1;
         if (level <= 0) return 1;
         int drops = random.nextInt(level + 2) - 1;
         if (drops < 0) drops = 0;
         return applyLapisDrops(material, random) * (drops + 1);
     }
 
-    private int applyLapisDrops(CompatibleMaterial material, Random random) {
-        return material == CompatibleMaterial.LAPIS_ORE ? 4 + random.nextInt(5) : 1;
+    private int applyLapisDrops(XMaterial material, Random random) {
+        return material == XMaterial.LAPIS_ORE ? 4 + random.nextInt(5) : 1;
     }
 
-    private ItemStack getOreDrop(CompatibleMaterial material, Random random) {
+    private ItemStack getOreDrop(XMaterial material, Random random) {
         ItemStack item = null;
         switch (material) {
             case COAL_ORE:
-                item = CompatibleMaterial.COAL.getItem();
+                item = XMaterial.COAL.parseItem();
                 break;
             case DIAMOND_ORE:
-                item = CompatibleMaterial.DIAMOND.getItem();
+                item = XMaterial.DIAMOND.parseItem();
                 break;
             case EMERALD_ORE:
-                item = CompatibleMaterial.EMERALD.getItem();
+                item = XMaterial.EMERALD.parseItem();
                 break;
             case GOLD_ORE:
-                item = CompatibleMaterial.GOLD_ORE.getItem();
+                item = XMaterial.GOLD_ORE.parseItem();
                 break;
             case IRON_ORE:
-                item = CompatibleMaterial.IRON_ORE.getItem();
+                item = XMaterial.IRON_ORE.parseItem();
                 break;
             case LAPIS_ORE:
-                item = CompatibleMaterial.LAPIS_LAZULI.getItem();
+                item = XMaterial.LAPIS_LAZULI.parseItem();
                 break;
             case NETHER_QUARTZ_ORE:
-                item = CompatibleMaterial.QUARTZ.getItem();
+                item = XMaterial.QUARTZ.parseItem();
                 break;
             case REDSTONE_ORE:
-                item = CompatibleMaterial.REDSTONE.getItem();
+                item = XMaterial.REDSTONE.parseItem();
                 break;
         }
 

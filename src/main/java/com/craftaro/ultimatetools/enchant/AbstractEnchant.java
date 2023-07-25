@@ -1,8 +1,8 @@
-package com.songoda.ultimatetools.enchant;
+package com.craftaro.ultimatetools.enchant;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.third_party.de.tr7zw.nbtapi.NBTItem;
-import com.songoda.core.utils.TextUtils;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.core.third_party.de.tr7zw.nbtapi.NBTItem;
+import com.craftaro.core.utils.TextUtils;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -105,7 +105,7 @@ public abstract class AbstractEnchant {
         if (level > maxLevel || level < minLevel)
             return null;
 
-        ItemStack book = CompatibleMaterial.ENCHANTED_BOOK.getItem();
+        ItemStack book = XMaterial.ENCHANTED_BOOK.parseItem();
         ItemMeta meta = book.getItemMeta();
         meta.setDisplayName(TextUtils.formatText("&eEnchanted Book"));
 
@@ -144,9 +144,9 @@ public abstract class AbstractEnchant {
         return Collections.unmodifiableList(applicableTypes);
     }
 
-    public boolean isApplicableType(CompatibleMaterial material) {
+    public boolean isApplicableType(XMaterial material) {
         for (ToolType type : applicableTypes) {
-            for (CompatibleMaterial m : type.getMaterials()) {
+            for (XMaterial m : type.getMaterials()) {
                 if (material == m) return true;
             }
         }

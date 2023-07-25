@@ -1,8 +1,8 @@
-package com.songoda.ultimatetools.commands;
+package com.craftaro.ultimatetools.commands;
 
-import com.songoda.core.commands.AbstractCommand;
-import com.songoda.ultimatetools.UltimateTools;
-import com.songoda.ultimatetools.enchant.AbstractEnchant;
+import com.craftaro.core.commands.AbstractCommand;
+import com.craftaro.ultimatetools.UltimateTools;
+import com.craftaro.ultimatetools.enchant.AbstractEnchant;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

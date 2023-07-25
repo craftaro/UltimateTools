@@ -1,19 +1,19 @@
-package com.songoda.ultimatetools;
+package com.craftaro.ultimatetools;
 
-import com.songoda.core.SongodaCore;
-import com.songoda.core.SongodaPlugin;
-import com.songoda.core.commands.CommandManager;
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.configuration.Config;
-import com.songoda.core.locale.Locale;
-import com.songoda.ultimatetools.commands.CommandGiveBook;
-import com.songoda.ultimatetools.enchant.EnchantManager;
-import com.songoda.ultimatetools.listeners.BlockListeners;
-import com.songoda.ultimatetools.listeners.EntityListeners;
-import com.songoda.ultimatetools.listeners.InteractListeners;
-import com.songoda.ultimatetools.listeners.InventoryListeners;
-import com.songoda.ultimatetools.listeners.VanillaEnchantListener;
-import com.songoda.ultimatetools.settings.Settings;
+import com.craftaro.core.SongodaCore;
+import com.craftaro.core.SongodaPlugin;
+import com.craftaro.core.commands.CommandManager;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.core.configuration.Config;
+import com.craftaro.core.locale.Locale;
+import com.craftaro.ultimatetools.commands.CommandGiveBook;
+import com.craftaro.ultimatetools.enchant.EnchantManager;
+import com.craftaro.ultimatetools.listeners.BlockListeners;
+import com.craftaro.ultimatetools.listeners.EntityListeners;
+import com.craftaro.ultimatetools.listeners.InteractListeners;
+import com.craftaro.ultimatetools.listeners.InventoryListeners;
+import com.craftaro.ultimatetools.listeners.VanillaEnchantListener;
+import com.craftaro.ultimatetools.settings.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -35,8 +35,8 @@ public class UltimateTools extends SongodaPlugin {
 
     @Override
     public void onPluginEnable() {
-        // Run Songoda Updater
-        SongodaCore.registerPlugin(this, 580, CompatibleMaterial.ENCHANTED_BOOK);
+        // Run Craftaro Updater
+        SongodaCore.registerPlugin(this, 580, XMaterial.ENCHANTED_BOOK);
 
         // Setup Config
         Settings.setupConfig();

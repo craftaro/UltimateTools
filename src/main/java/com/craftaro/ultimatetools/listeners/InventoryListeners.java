@@ -1,10 +1,11 @@
-package com.songoda.ultimatetools.listeners;
+package com.craftaro.ultimatetools.listeners;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.third_party.de.tr7zw.nbtapi.NBTItem;
-import com.songoda.ultimatetools.UltimateTools;
-import com.songoda.ultimatetools.enchant.AbstractEnchant;
-import com.songoda.ultimatetools.enchant.EnchantManager;
+
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.core.third_party.de.tr7zw.nbtapi.NBTItem;
+import com.craftaro.ultimatetools.UltimateTools;
+import com.craftaro.ultimatetools.enchant.AbstractEnchant;
+import com.craftaro.ultimatetools.enchant.EnchantManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,7 +30,7 @@ public class InventoryListeners implements Listener {
 
         if (event.getCursor() != null && event.getCurrentItem() != null) {
             ItemStack book = event.getCursor();
-            if (CompatibleMaterial.getMaterial(book) != CompatibleMaterial.ENCHANTED_BOOK)
+            if (XMaterial.matchXMaterial(book) != XMaterial.ENCHANTED_BOOK)
                 return;
 
             ItemStack tool = event.getCurrentItem();
@@ -42,7 +43,7 @@ public class InventoryListeners implements Listener {
                 AbstractEnchant enchant = enchantManager.getEnchant(enchantStr);
                 if (enchant == null) continue;
 
-                if (book.hasItemMeta() && enchant.isApplicableType(CompatibleMaterial.getMaterial(tool))) {
+                if (book.hasItemMeta() && enchant.isApplicableType(XMaterial.matchXMaterial(tool))) {
                     event.setCurrentItem(enchant.apply(tool));
                     event.setCancelled(true);
                     player.setItemOnCursor(new ItemStack(Material.AIR));

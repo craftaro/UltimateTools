@@ -1,12 +1,12 @@
-package com.songoda.ultimatetools.enchant;
+package com.craftaro.ultimatetools.enchant;
 
-import com.songoda.core.compatibility.CompatibleMaterial;
-import com.songoda.core.third_party.de.tr7zw.nbtapi.NBTItem;
-import com.songoda.ultimatetools.UltimateTools;
-import com.songoda.ultimatetools.enchant.enchants.Blast;
-import com.songoda.ultimatetools.enchant.enchants.MultiTool;
-import com.songoda.ultimatetools.enchant.enchants.RemoteLoot;
-import com.songoda.ultimatetools.enchant.enchants.VeinMiner;
+import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.core.third_party.de.tr7zw.nbtapi.NBTItem;
+import com.craftaro.ultimatetools.UltimateTools;
+import com.craftaro.ultimatetools.enchant.enchants.Blast;
+import com.craftaro.ultimatetools.enchant.enchants.MultiTool;
+import com.craftaro.ultimatetools.enchant.enchants.RemoteLoot;
+import com.craftaro.ultimatetools.enchant.enchants.VeinMiner;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Event;
@@ -83,7 +83,7 @@ public class EnchantManager {
     }
 
     public void processEnchant(Event event, ItemStack item) {
-        if (CompatibleMaterial.getMaterial(item) == CompatibleMaterial.ENCHANTED_BOOK)
+        if (XMaterial.matchXMaterial(item.getType()) == XMaterial.ENCHANTED_BOOK)
             return;
 
         NBTItem nbtItem = new NBTItem(item);
@@ -137,13 +137,13 @@ public class EnchantManager {
     }
 
     /**
-     * Own implementation of {@link com.songoda.core.utils.ItemUtils#addGlow(ItemStack)} because it
+     * Own implementation of {@link com.craftaro.core.utils.ItemUtils#addGlow(ItemStack)} because it
      * is too aggressive and cannot guarantee that a player's enchantment is not overwritten, deleted or conflicting
      * <br><br>
      * Enchants the item with {@link Enchantment#ARROW_INFINITE} level 99 and adds {@link ItemFlag#HIDE_ENCHANTS} to it.
      * <br><br>
      *
-     * <b>If the item is a {@link Material#BOW} or {@link CompatibleMaterial#CROSSBOW}, {@link Enchantment#LURE} is used instead.</b>
+     * <b>If the item is a {@link Material#BOW} or {@link XMaterial#CROSSBOW}, {@link Enchantment#LURE} is used instead.</b>
      *
      * <br><br>
      * Does nothing to the item if it is already glowing ({@link #isGlowing(ItemStack)} or {@link ItemStack#getEnchantments()} is empty)
@@ -154,7 +154,7 @@ public class EnchantManager {
      */
     public static void setGlowing(ItemStack item) {
         if (!isGlowing(item) && item.getEnchantments().isEmpty()) {
-            if (item.getType() == Material.BOW || CompatibleMaterial.getMaterial(item.getType()) == CompatibleMaterial.CROSSBOW) {
+            if (item.getType() == Material.BOW || XMaterial.matchXMaterial(item.getType()) == XMaterial.CROSSBOW) {
                 item.addUnsafeEnchantment(Enchantment.LURE, 99);
             } else {
                 item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 99);
@@ -170,7 +170,7 @@ public class EnchantManager {
     }
 
     /**
-     * Own implementation of {@link com.songoda.core.utils.ItemUtils#addGlow(ItemStack)} because it
+     * Own implementation of {@link com.craftaro.core.utils.ItemUtils#addGlow(ItemStack)} because it
      * is too aggressive and cannot guarantee that a player's enchantment is not overwritten, deleted or conflicting
      *
      * @param item The item that should be modified
@@ -179,7 +179,7 @@ public class EnchantManager {
      */
     public static void unsetGlowing(ItemStack item) {
         if (isGlowing(item)) {
-            if (item.getType() == Material.BOW || CompatibleMaterial.getMaterial(item.getType()) == CompatibleMaterial.CROSSBOW) {
+            if (item.getType() == Material.BOW || XMaterial.matchXMaterial(item.getType()) == XMaterial.CROSSBOW) {
                 item.removeEnchantment(Enchantment.LURE);
             } else {
                 item.removeEnchantment(Enchantment.ARROW_INFINITE);
