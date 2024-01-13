@@ -1,6 +1,6 @@
 package com.craftaro.ultimatetools.enchant;
 
-import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.core.third_party.de.tr7zw.nbtapi.NBTItem;
 import com.craftaro.ultimatetools.UltimateTools;
 import com.craftaro.ultimatetools.enchant.enchants.Blast;

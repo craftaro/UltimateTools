@@ -3,7 +3,8 @@ package com.craftaro.ultimatetools;
 import com.craftaro.core.SongodaCore;
 import com.craftaro.core.SongodaPlugin;
 import com.craftaro.core.commands.CommandManager;
-import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.core.dependency.Dependency;
+import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.core.configuration.Config;
 import com.craftaro.core.locale.Locale;
 import com.craftaro.ultimatetools.commands.CommandGiveBook;
@@ -17,7 +18,9 @@ import com.craftaro.ultimatetools.settings.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UltimateTools extends SongodaPlugin {
     private static UltimateTools INSTANCE;
@@ -26,6 +29,11 @@ public class UltimateTools extends SongodaPlugin {
 
     public static UltimateTools getInstance() {
         return INSTANCE;
+    }
+
+    @Override
+    protected Set<Dependency> getDependencies() {
+        return new HashSet<>();
     }
 
     @Override

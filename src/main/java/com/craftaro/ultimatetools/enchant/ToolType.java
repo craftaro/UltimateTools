@@ -1,7 +1,7 @@
 package com.craftaro.ultimatetools.enchant;
 
 
-import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 
 import java.util.ArrayList;
 import java.util.Arrays;

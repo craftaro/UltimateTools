@@ -1,6 +1,6 @@
 package com.craftaro.ultimatetools.enchant.enchants;
 
-import com.craftaro.core.third_party.com.cryptomorin.xseries.XMaterial;
+import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.ultimatetools.enchant.AbstractEnchant;
 import com.craftaro.ultimatetools.enchant.EnchantHandler;
 import com.craftaro.ultimatetools.enchant.EnchantType;
