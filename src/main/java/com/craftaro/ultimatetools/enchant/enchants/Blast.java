@@ -1,27 +1,18 @@
 package com.craftaro.ultimatetools.enchant.enchants;
 
-import com.craftaro.core.compatibility.MethodMapping;
-import com.craftaro.core.nms.ReflectionUtils;
 import com.craftaro.ultimatetools.enchant.AbstractEnchant;
 import com.craftaro.ultimatetools.enchant.EnchantHandler;
 import com.craftaro.ultimatetools.enchant.EnchantType;
 import com.craftaro.ultimatetools.enchant.ToolType;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Blast extends AbstractEnchant {
     public Blast() {
@@ -72,12 +63,15 @@ public class Blast extends AbstractEnchant {
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
                 for (int z = -1; z <= 1; z++) {
+
                     Block block = centerLocation.clone().add(x, y, z).getBlock();
-                    blocks.add(block);
+                    if (block.getType() != Material.BEDROCK
+                            && block.getType() != Material.BARRIER) {
+                        blocks.add(block);
+                    }
                 }
             }
         }
-
         return blocks;
     }
 }
