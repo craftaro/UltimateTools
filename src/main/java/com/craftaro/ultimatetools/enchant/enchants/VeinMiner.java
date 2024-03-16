@@ -30,7 +30,17 @@ public class VeinMiner extends AbstractEnchant {
                 XMaterial.EMERALD_ORE,
                 XMaterial.GOLD_ORE,
                 XMaterial.NETHER_GOLD_ORE,
-                XMaterial.NETHER_QUARTZ_ORE));
+                XMaterial.NETHER_QUARTZ_ORE,
+                XMaterial.COPPER_ORE,
+                XMaterial.DEEPSLATE_IRON_ORE,
+                XMaterial.DEEPSLATE_DIAMOND_ORE,
+                XMaterial.DEEPSLATE_COAL_ORE,
+                XMaterial.DEEPSLATE_LAPIS_ORE,
+                XMaterial.DEEPSLATE_REDSTONE_ORE,
+                XMaterial.DEEPSLATE_EMERALD_ORE,
+                XMaterial.DEEPSLATE_GOLD_ORE,
+                XMaterial.DEEPSLATE_COPPER_ORE,
+                XMaterial.ANCIENT_DEBRIS));
     }
 
     @EnchantHandler
@@ -45,6 +55,7 @@ public class VeinMiner extends AbstractEnchant {
 
         ItemStack pick = CompatibleHand.getHand(event).getItem(event.getPlayer());
 
+        int damageToApply = 1;
         Location location = block.getLocation();
         Block clickedBlock = location.getBlock();
         for (int x = -radius; x <= radius; x++) {
@@ -52,11 +63,14 @@ public class VeinMiner extends AbstractEnchant {
                 for (int z = -radius; z <= radius; z++) {
                     Block foundBlock = clickedBlock.getWorld().getBlockAt(clickedBlock.getX() + x,
                             clickedBlock.getY() + y, clickedBlock.getZ() + z);
-                    if (XMaterial.matchXMaterial(foundBlock.getType()) == material)
+                    if (XMaterial.matchXMaterial(foundBlock.getType()) == material) {
                         foundBlock.breakNaturally(pick);
+                        damageToApply++;
+                    }
                 }
             }
         }
+        applyDamage(pick, damageToApply);
     }
 }
 

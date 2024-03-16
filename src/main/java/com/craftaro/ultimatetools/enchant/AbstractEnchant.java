@@ -3,6 +3,7 @@ package com.craftaro.ultimatetools.enchant;
 import com.craftaro.third_party.com.cryptomorin.xseries.XMaterial;
 import com.craftaro.core.third_party.de.tr7zw.nbtapi.NBTItem;
 import com.craftaro.core.utils.TextUtils;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -28,6 +29,8 @@ public abstract class AbstractEnchant {
     private final int maxLevel;
 
     private final List<ToolType> applicableTypes = new ArrayList<>();
+
+    private final java.util.Random random = new java.util.Random();
 
     private AbstractEnchant(EnchantType type, String key, String name, int minLevel, int maxLevel, ToolType... toolTypes) {
         this.type = type;
@@ -151,5 +154,20 @@ public abstract class AbstractEnchant {
             }
         }
         return false;
+    }
+
+    protected void applyDamage(ItemStack item, int durabilityToAdd) {
+        if (item.containsEnchantment(Enchantment.DURABILITY)) {
+            int unbreakingLevel = item.getEnchantmentLevel(Enchantment.DURABILITY);
+            if (random.nextInt(unbreakingLevel + 1) == 0) {
+                item.setDurability((short) (item.getDurability() + durabilityToAdd));
+            }
+        } else {
+            item.setDurability((short) (item.getDurability() + durabilityToAdd));
+        }
+
+        if (item.getDurability() >= item.getType().getMaxDurability()) {
+            item.setAmount(0);
+        }
     }
 }

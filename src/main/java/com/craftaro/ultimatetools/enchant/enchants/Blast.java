@@ -1,7 +1,5 @@
 package com.craftaro.ultimatetools.enchant.enchants;
 
-import com.craftaro.core.compatibility.MethodMapping;
-import com.craftaro.core.nms.ReflectionUtils;
 import com.craftaro.ultimatetools.enchant.AbstractEnchant;
 import com.craftaro.ultimatetools.enchant.EnchantHandler;
 import com.craftaro.ultimatetools.enchant.EnchantType;
@@ -10,23 +8,13 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.util.Vector;
+import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 public class Blast extends AbstractEnchant {
-    private final Map<UUID, TNTBlock> primed = new HashMap<>();
-
     public Blast() {
         super(EnchantType.BLAST, "Blast", 1, 3, ToolType.PICKAXE, ToolType.SHOVEL);
     }
@@ -34,109 +22,56 @@ public class Blast extends AbstractEnchant {
     @EnchantHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Block block = event.getBlock();
-        block.setType(Material.AIR);
+        ItemStack tool = event.getPlayer().getInventory().getItemInHand();
 
-        for (int i = 0; i < 5; ++i) {
-            TNTPrimed tnt = block.getWorld().spawn(block.getLocation(), TNTPrimed.class);
-            tnt.setFuseTicks(i * 5);
-            setSource(tnt, event.getPlayer());
+        List<Block> destroyedBlocks = getBlocksInArea(block.getLocation(), event.getPlayer());
+        for (Block destroyedBlock : destroyedBlocks)
+            destroyedBlock.breakNaturally(tool);
 
-            primed.put(tnt.getUniqueId(), new TNTBlock(tnt, event.getBlock().getLocation(), event.getPlayer().getLocation().getDirection()));
-        }
+        applyDamage(tool, destroyedBlocks.size());
     }
 
-    @EnchantHandler
-    public void onEntityDamageByPlayer(EntityDamageByEntityEvent event) {
-        if (event.getEntity() instanceof Player)
-            event.setCancelled(true);
-    }
-
-    @EnchantHandler
-    public void onEntityExplode(EntityExplodeEvent event) {
-        if (!primed.containsKey(event.getEntity().getUniqueId()))
-            return;
-
-        TNTBlock tntBlock = primed.get(event.getEntity().getUniqueId());
-        List<Block> destroyed = event.blockList();
-        List<Block> acceptable = getInRadius(tntBlock, 1);
-
-        destroyed.removeIf(b -> !acceptable.contains(b));
-    }
-
-    private Method playerGetHandle;
-    private Method tntGetHandle;
-    private boolean useLegacyTnt;
-
-    private void setSource(TNTPrimed tntPrimed, Player player) {
-        if (!useLegacyTnt) {
-            try {
-                tntPrimed.setSource(player);
-            } catch (NoSuchMethodError ignore) {
-                useLegacyTnt = true;
-            }
-        }
-
-        // Use reflections for older server versions
-        if (useLegacyTnt) {
-            if (playerGetHandle == null) {
-                playerGetHandle = MethodMapping.CB_GENERIC__GET_HANDLE.getMethod(player.getClass());
-                tntGetHandle = MethodMapping.CB_GENERIC__GET_HANDLE.getMethod(tntPrimed.getClass());
-            }
-
-            try {
-                Object nmsPlayer = playerGetHandle.invoke(player);
-                Object nmsTNT = tntGetHandle.invoke(tntPrimed);
-
-                ReflectionUtils.setFieldValue(nmsTNT, "source", nmsPlayer);
-            } catch (IllegalAccessException | InvocationTargetException | NoSuchFieldException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    public List<Block> getInRadius(TNTBlock tntBlock, int radius) {
-        Location location = tntBlock.location.add(tntBlock.direction.multiply(2));
-        Block clickedBlock = location.getBlock();
+    private List<Block> getBlocksInArea(Location location, Player player) {
         List<Block> blocks = new ArrayList<>();
-        blocks.add(clickedBlock);
+        int offsetX = 0;
+        int offsetY = 0;
+        int offsetZ = 0;
 
-        for (int x = -radius; x <= radius; x++) {
-            for (int y = -radius; y <= radius; y++) {
-                for (int z = -radius; z <= radius; z++) {
-                    Block block = clickedBlock.getWorld().getBlockAt(clickedBlock.getX() + x,
-                            clickedBlock.getY() + y, clickedBlock.getZ() + z);
-                    if (!blocks.contains(block))
+        float yaw = player.getLocation().getYaw();
+        float pitch = player.getLocation().getPitch();
+
+        if (pitch < -60) {
+            offsetY = 1; // Player is looking down
+        } else if (pitch > 60) {
+            offsetY = -1; // Player is looking up
+        } else {
+            if (yaw >= -45 && yaw < 45) {
+                offsetZ = 1; // Player is looking south
+            } else if (yaw >= 45 && yaw < 135) {
+                offsetX = -1; // Player is looking west
+            } else if (yaw >= -135 && yaw < -45) {
+                offsetX = 1; // Player is looking east
+            } else {
+                offsetZ = -1; // Player is looking north
+            }
+        }
+
+        // Get the center block location
+        Location centerLocation = location.clone().add(offsetX, offsetY, offsetZ);
+
+        // Iterate over the 3x3x3 cube
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                for (int z = -1; z <= 1; z++) {
+
+                    Block block = centerLocation.clone().add(x, y, z).getBlock();
+                    if (block.getType() != Material.BEDROCK
+                            && block.getType() != Material.BARRIER) {
                         blocks.add(block);
+                    }
                 }
             }
         }
-
         return blocks;
     }
-
-    private static class TNTBlock {
-        private final TNTPrimed tntPrimed;
-        private final Location location;
-        private final Vector direction;
-
-        public TNTBlock(TNTPrimed tntPrimed, Location location, Vector direction) {
-            this.tntPrimed = tntPrimed;
-            this.location = location;
-            this.direction = direction;
-        }
-
-        public TNTPrimed getTntPrimed() {
-            return tntPrimed;
-        }
-
-        public Location getLocation() {
-            return location.clone();
-        }
-
-        public Vector getDirection() {
-            return direction;
-        }
-    }
 }
-
-

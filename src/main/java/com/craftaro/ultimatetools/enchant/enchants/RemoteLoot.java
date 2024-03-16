@@ -171,10 +171,20 @@ RemoteLoot extends AbstractEnchant {
                 && material != XMaterial.DIAMOND_ORE
                 && material != XMaterial.EMERALD_ORE
                 && material != XMaterial.NETHER_QUARTZ_ORE
-                && material != XMaterial.LAPIS_ORE) return 1;
+                && material != XMaterial.LAPIS_ORE
+                && material != XMaterial.COPPER_ORE
+                && material != XMaterial.DEEPSLATE_COAL_ORE
+                && material != XMaterial.DEEPSLATE_DIAMOND_ORE
+                && material != XMaterial.DEEPSLATE_EMERALD_ORE
+                && material != XMaterial.DEEPSLATE_LAPIS_ORE
+                && material != XMaterial.DEEPSLATE_COPPER_ORE)
+            return 1;
+
         if (level <= 0) return 1;
+
         int drops = random.nextInt(level + 2) - 1;
         if (drops < 0) drops = 0;
+
         return applyLapisDrops(material, random) * (drops + 1);
     }
 
@@ -209,14 +219,58 @@ RemoteLoot extends AbstractEnchant {
             case REDSTONE_ORE:
                 item = XMaterial.REDSTONE.parseItem();
                 break;
+            case NETHER_GOLD_ORE:
+                item = XMaterial.GOLD_NUGGET.parseItem();
+                break;
+            case COPPER_ORE:
+                item = XMaterial.RAW_COPPER.parseItem();
+                break;
+            case DEEPSLATE_COAL_ORE:
+                item = XMaterial.COAL.parseItem();
+                break;
+            case DEEPSLATE_COPPER_ORE:
+                item = XMaterial.RAW_COPPER.parseItem();
+                break;
+            case DEEPSLATE_DIAMOND_ORE:
+                item = XMaterial.DIAMOND.parseItem();
+                break;
+            case DEEPSLATE_EMERALD_ORE:
+                item = XMaterial.EMERALD.parseItem();
+                break;
+            case DEEPSLATE_GOLD_ORE:
+                item = XMaterial.RAW_GOLD.parseItem();
+                break;
+            case DEEPSLATE_IRON_ORE:
+                item = XMaterial.RAW_IRON.parseItem();
+                break;
+            case DEEPSLATE_LAPIS_ORE:
+                item = XMaterial.LAPIS_LAZULI.parseItem();
+                break;
+            case DEEPSLATE_REDSTONE_ORE:
+                item = XMaterial.REDSTONE.parseItem();
+                break;
+            case ANCIENT_DEBRIS:
+                item = XMaterial.NETHERITE_SCRAP.parseItem();
+                break;
         }
-
         switch (material) {
             case LAPIS_ORE:
+            case DEEPSLATE_LAPIS_ORE:
                 item.setAmount(random.nextInt((9 - 4) + 1) + 4);
                 break;
             case REDSTONE_ORE:
+            case DEEPSLATE_REDSTONE_ORE:
                 item.setAmount(random.nextInt((5 - 4) + 1) + 4);
+                break;
+            case NETHER_GOLD_ORE:
+                item.setAmount(random.nextInt((6 - 2) + 1) + 2);
+                break;
+            case COPPER_ORE:
+            case DEEPSLATE_COPPER_ORE:
+                item.setAmount(random.nextInt((5 - 2) + 1) + 2);
+                break;
+            case ANCIENT_DEBRIS:
+                item.setAmount(1);
                 break;
         }
         return item;
