@@ -6,15 +6,17 @@ import com.songoda.ultimatetools.enchant.EnchantHandler;
 import com.songoda.ultimatetools.enchant.EnchantType;
 import com.songoda.ultimatetools.enchant.ToolType;
 import com.songoda.ultimatetools.settings.Settings;
+import com.songoda.ultimatetools.utils.LocationUtils;
+import com.songoda.core.third_party.de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Blast extends AbstractEnchant {
     public Blast() {
@@ -24,12 +26,61 @@ public class Blast extends AbstractEnchant {
     @EnchantHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Block block = event.getBlock();
-        ItemStack tool = event.getPlayer().getInventory().getItemInHand();
+        Player player = event.getPlayer();
+        ItemStack tool = player.getInventory().getItemInHand();
 
-        List<Block> destroyedBlocks = getBlocksInArea(block.getLocation(), event.getPlayer());
-        for (Block destroyedBlock : destroyedBlocks)
-            destroyedBlock.breakNaturally(tool);
-        if(!tool.getItemMeta().isUnbreakable()){
+        // Check for Remote Loot tool and get the linked chest location
+        Location remoteChestLocation = null;
+        boolean hasRemoteLoot = false;
+        if (tool != null && tool.hasItemMeta()) {
+            NBTItem nbtItem = new NBTItem(tool);
+            if (nbtItem.hasKey("RLL")) {
+                remoteChestLocation = LocationUtils.unserializeLocation(nbtItem.getString("RLL"));
+                // Verify the chest still exists
+                if (remoteChestLocation != null && remoteChestLocation.getBlock().getType() == Material.CHEST) {
+                    hasRemoteLoot = true;
+                }
+            }
+        }
+
+        List<Block> destroyedBlocks = getBlocksInArea(block.getLocation(), player);
+        // Remove the main block from the list to prevent processing it twice
+        destroyedBlocks.remove(block);
+
+        // Process each block in the blast radius (excluding the main block)
+        for (Block destroyedBlock : destroyedBlocks) {
+            if (hasRemoteLoot && remoteChestLocation != null) {
+                // Cancel the event to prevent natural drops
+                event.setDropItems(false);
+                
+                // Get and process the drops
+                Collection<ItemStack> drops = destroyedBlock.getDrops(tool);
+                if (!drops.isEmpty()) {
+                    InventoryHolder chest = (InventoryHolder) remoteChestLocation.getBlock().getState();
+                    for (ItemStack drop : drops) {
+                        if (drop != null) {
+                            // Add to chest or drop if full
+                            Map<Integer, ItemStack> remaining = chest.getInventory().addItem(drop);
+                            if (!remaining.isEmpty()) {
+                                for (ItemStack item : remaining.values()) {
+                                    destroyedBlock.getWorld().dropItemNaturally(destroyedBlock.getLocation(), item);
+                                }
+                            }
+                        }
+                    }
+                }
+                // Set to air to remove the block
+                destroyedBlock.setType(Material.AIR);
+            } else {
+                // If not the main block, break it naturally
+                if (!destroyedBlock.equals(block)) {
+                    destroyedBlock.breakNaturally(tool);
+                }
+            }
+        }
+
+        // Apply tool damage for all blocks broken
+        if (tool != null && tool.hasItemMeta() && !tool.getItemMeta().isUnbreakable()) {
             applyDamage(tool, destroyedBlocks.size());
         }
     }
