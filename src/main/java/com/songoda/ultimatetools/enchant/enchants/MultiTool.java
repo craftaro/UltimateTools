@@ -112,7 +112,7 @@ public class MultiTool extends AbstractEnchant {
             case BUDDING_AMETHYST:
             case CALCITE:
             case CAULDRON:
-            case CHAIN:
+            case IRON_CHAIN:
             case CHIPPED_ANVIL:
             case CHISELED_DEEPSLATE:
             case CHISELED_NETHER_BRICKS:
